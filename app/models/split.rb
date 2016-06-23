@@ -1,3 +1,4 @@
 class Split < ActiveRecord::Base
-  belongs_to :agent
+	# Relations
+	belongs_to :agent
 end
