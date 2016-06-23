@@ -22,7 +22,7 @@ gem 'jquery-ui-rails', '~> 5.0', '>= 5.0.5'
 gem 'rails-jquery-autocomplete', '~> 1.0', '>= 1.0.3'
 gem 'puma', '~> 3.4'
 gem 'rack-timeout', '~> 0.4.2'  # set timeout in config/initializers/timeout.rb (Example: Rack::Timeout.timeout = 10)
-
+gem 'bcrypt', '~> 3.1', '>= 3.1.11'  # Use ActiveModel has_secure_password
 
 group :doc do
 	gem 'sdoc', '~> 0.4.1'  # bundle exec rake doc:rails generates the API under doc/api.
@@ -37,7 +37,6 @@ group :development do
 end
 
 
-# gem 'bcrypt', '~> 3.1.7'  # Use ActiveModel has_secure_password
 # gem 'acts_as_paranoid', '~> 0.4.3'  # ActiveRecord plugin allowing you to hide and restore records without actually deleting them.
 
 
