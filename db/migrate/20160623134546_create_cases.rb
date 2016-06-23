@@ -3,7 +3,6 @@ class CreateCases < ActiveRecord::Migration
     create_table :cases do |t|
       t.string :queue
       t.string :description
-
       t.timestamps null: false
     end
     add_index :cases, :queue, unique: true
