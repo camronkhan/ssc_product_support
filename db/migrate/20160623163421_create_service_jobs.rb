@@ -4,8 +4,8 @@ class CreateServiceJobs < ActiveRecord::Migration
       t.string :condition
       t.references :product, index: true, foreign_key: true
       t.references :servicer, index: true, foreign_key: true
-
       t.timestamps null: false
     end
+    add_index :service_jobs, [:product_id, :servicer_id]
   end
 end

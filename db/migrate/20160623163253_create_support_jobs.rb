@@ -7,5 +7,6 @@ class CreateSupportJobs < ActiveRecord::Migration
       t.references :agent, index: true, foreign_key: true
       t.timestamps null: false
     end
+    add_index :support_jobs, [:product_id, :support_type, :agent_id]
   end
 end
