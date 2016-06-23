@@ -8,6 +8,7 @@ class CreateAddresses < ActiveRecord::Migration
       t.string :state_province, null: false
       t.string :postal_code, null: false
       t.string :country, null: false
+      t.references :addressable, polymorphic: true
       t.timestamps null: false
     end
     add_index :addresses, [:addressable_type, :addressable_id], name: 'addressable_index'

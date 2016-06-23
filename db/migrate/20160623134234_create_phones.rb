@@ -4,6 +4,7 @@ class CreatePhones < ActiveRecord::Migration
       t.string :number, null: false
       t.string :option
       t.string :description
+      t.references :phonable, polymorphic: true
       t.timestamps null: false
     end
     add_index :phones, [:phonable_type, :phonable_id], name: 'phonable_index'

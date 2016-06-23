@@ -3,6 +3,7 @@ class CreateCases < ActiveRecord::Migration
     create_table :cases do |t|
       t.string :queue, null: false
       t.string :description
+      t.references :caseable, polymorphic: true
       t.timestamps null: false
     end
     add_index :cases, :queue, unique: true
