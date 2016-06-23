@@ -1,0 +1,11 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  queue: MyString
+  description: MyString
+  agent_id: 
+
+two:
+  queue: MyString
+  description: MyString
+  agent_id: 
