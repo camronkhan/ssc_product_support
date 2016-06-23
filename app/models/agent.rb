@@ -6,6 +6,7 @@ class Agent < ActiveRecord::Base
 	has_many :support_jobs
 	has_many :products, through: :support_jobs
 	has_many :operation_times
+	has_many :splits
 
 	# Polymorphic Attributes
 	has_many :cases, as: :caseable
