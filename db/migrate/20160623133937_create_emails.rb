@@ -7,5 +7,6 @@ class CreateEmails < ActiveRecord::Migration
       t.timestamps null: false
     end
     add_index :emails, :address, unique: true
+    add_index :emails, [:emailable_type, :emailable_id], name: 'emailable_index'
   end
 end
