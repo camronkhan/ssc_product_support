@@ -1,0 +1,11 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  condition: MyString
+  product_id: 
+  servicer_id: 
+
+two:
+  condition: MyString
+  product_id: 
+  servicer_id: 
