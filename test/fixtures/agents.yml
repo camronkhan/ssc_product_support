@@ -1,0 +1,13 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  name: MyString
+  operates24x7: false
+  support_function_id: 
+  support_center_id: 
+
+two:
+  name: MyString
+  operates24x7: false
+  support_function_id: 
+  support_center_id: 
