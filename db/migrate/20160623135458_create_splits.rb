@@ -6,6 +6,5 @@ class CreateSplits < ActiveRecord::Migration
       t.timestamps null: false
     end
     add_index :splits, :queue, unique: true
-    add_index :splits, [:splitable_type, :splitable_id], name: 'splitable_index'
   end
 end
