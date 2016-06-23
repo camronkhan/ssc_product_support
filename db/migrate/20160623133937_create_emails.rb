@@ -1,7 +1,7 @@
 class CreateEmails < ActiveRecord::Migration
   def change
     create_table :emails do |t|
-      t.string :address
+      t.string :address, null: false
       t.string :description
 
       t.timestamps null: false

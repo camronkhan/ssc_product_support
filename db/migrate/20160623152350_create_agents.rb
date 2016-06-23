@@ -1,11 +1,11 @@
 class CreateAgents < ActiveRecord::Migration
   def change
     create_table :agents do |t|
-      t.string :name
-      t.boolean :operates24x7
-      t.references :split, index: true, foreign_key: true
-      t.references :support_function, index: true, foreign_key: true
-      t.references :support_center, index: true, foreign_key: true
+      t.string :name, null: false
+      t.boolean :operates24x7, null: false
+      t.references :split, index: true, foreign_key: true, null: false
+      t.references :support_function, index: true, foreign_key: true, null: false
+      t.references :support_center, index: true, foreign_key: true, null: false
       t.timestamps null: false
     end
     add_index :agents, :name, unique: true

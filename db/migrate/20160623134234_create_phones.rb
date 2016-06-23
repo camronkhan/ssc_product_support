@@ -1,7 +1,7 @@
 class CreatePhones < ActiveRecord::Migration
   def change
     create_table :phones do |t|
-      t.string :number
+      t.string :number, null: false
       t.string :option
       t.string :description
       t.timestamps null: false
