@@ -1,0 +1,13 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  open: 2016-06-23 11:21:58
+  close: 2016-06-23 11:21:58
+  agent_id: 
+  day_id: 
+
+two:
+  open: 2016-06-23 11:21:58
+  close: 2016-06-23 11:21:58
+  agent_id: 
+  day_id: 
