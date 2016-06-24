@@ -1,17 +1,17 @@
 # Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
 
-valid:
+valid_product:
   name: MyString
   description: MyString
   image_url: MyString
-  manufacturer_id: 999
-  source_type_id: 999
-  source_location_id: 999
+  manufacturer: valid_manufacturer
+  source_type: valid_source_type
+  source_location: valid_source_location
 
 two:
   name: MyString2
   description: MyString
   image_url: MyString
-  manufacturer_id: 999
-  source_type_id: 999
-  source_location_id: 999
+  manufacturer: valid_manufacturer
+  source_type: valid_source_type
+  source_location: valid_source_location

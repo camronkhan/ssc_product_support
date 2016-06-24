@@ -1,6 +1,6 @@
 # Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
 
-valid:
+valid_case_queue:
   queue: MyString
   description: MyString
 

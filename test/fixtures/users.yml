@@ -1,12 +1,12 @@
 # Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
 
-valid:
+valid_user:
   core_id: MyString
   first_name: MyString
   last_name: MyString
   email: MyString@MyString
   password_digest: MyString
-  user_role_id: 999
+  user_role: valid_user_role
 
 two:
   core_id: MyString2
@@ -14,4 +14,4 @@ two:
   last_name: MyString
   email: MyString2@MyString2
   password_digest: MyString
-  user_role_id: 999
+  user_role: valid_user_role

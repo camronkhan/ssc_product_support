@@ -1,11 +1,11 @@
 # Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
 
-valid:
+valid_split:
   queue: MyString
   description: MyString
-  agent_id: 1
+  agent: valid_agent
 
 two:
   queue: MyString2
   description: MyString
-  agent_id: 1
+  agent: valid_agent

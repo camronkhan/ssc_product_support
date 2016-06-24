@@ -1,11 +1,11 @@
 # Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
 
-valid:
+valid_service_job:
   condition: MyString
-  product_id: 1
-  servicer_id: 1
+  product: valid_product
+  servicer: valid_servicer
 
 two:
   condition: MyString2
-  product_id: 1
-  servicer_id: 1
+  product: valid_product
+  servicer: valid_servicer

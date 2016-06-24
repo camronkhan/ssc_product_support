@@ -1,13 +1,13 @@
 # Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
 
-valid:
+valid_support_job:
   condition: MyString
-  product_id: 1
-  support_type_id: 1
-  agent_id: 1
+  product: valid_product
+  support_type: valid_support_type
+  agent: valid_agent
 
 two:
   condition: MyString2
-  product_id: 1
-  support_type_id: 1
-  agent_id: 1 
+  product: valid_product
+  support_type: valid_support_type
+  agent: valid_agent

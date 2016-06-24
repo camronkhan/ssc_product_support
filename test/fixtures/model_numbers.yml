@@ -1,11 +1,11 @@
 # Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
 
-valid:
+valid_model_number:
   model: MyString
   description: MyString
-  product_id: 1
+  product: valid_product
 
 two:
   model: MyString2
   description: MyString
-  product_id: 1
+  product: valid_product

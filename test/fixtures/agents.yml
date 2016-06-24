@@ -1,13 +1,13 @@
 # Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
 
-valid:
+valid_agent:
   name: MyString
   operates24x7: false
-  support_function_id: 1
-  support_center_id: 1
+  support_function: valid_support_function
+  support_center: valid_support_center
 
 two:
   name: MyString2
   operates24x7: false
-  support_function_id: 1
-  support_center_id: 1
+  support_function: valid_support_function
+  support_center: valid_support_center
