@@ -10,4 +10,8 @@ class Servicer < ActiveRecord::Base
 	has_many :emails, as: :emailable
 	has_many :phones, as: :phonable
 	has_many :notes, as: :annotatable
+
+	# Validations
+	validates :name, presence: true, uniqueness: { case_sensitive: false }
+	
 end
