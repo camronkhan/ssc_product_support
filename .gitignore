@@ -16,4 +16,4 @@
 /.env
 
 # Ignore byebug history
-/.env
+/.byebug_history
