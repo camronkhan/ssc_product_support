@@ -9,18 +9,18 @@ class ProductTest < ActiveSupport::TestCase
 			name: 'NewString',
 			description: 'NewString',
 			image_url: 'NewString',
-			manufacturer: manufacturers(:valid),
-			source_type: source_types(:valid),
-			source_location: source_locations(:valid)
+			manufacturer: manufacturers(:valid_manufacturer),
+			source_type: source_types(:valid_source_type),
+			source_location: source_locations(:valid_source_location)
 		)
 
 		@duplicate_product = Product.create(
 			name: 'MyString',
 			description: 'MyString',
 			image_url: 'MyString',
-			manufacturer: manufacturers(:valid),
-			source_type: source_types(:valid),
-			source_location: source_locations(:valid)
+			manufacturer: manufacturers(:valid_manufacturer),
+			source_type: source_types(:valid_source_type),
+			source_location: source_locations(:valid_source_location)
 		)
   	end
 

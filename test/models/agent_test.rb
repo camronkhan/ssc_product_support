@@ -8,15 +8,15 @@ class AgentTest < ActiveSupport::TestCase
 		@new_agent = Agent.create(
 			name: 'NewString',
 			operates24x7: false,
-			support_function: support_functions(:valid),
-			support_center: support_centers(:valid)
+			support_function: support_functions(:valid_support_function),
+			support_center: support_centers(:valid_support_center)
 		)
 
 		@duplicate_agent = Agent.create(
 			name: 'MyString',
 			operates24x7: false,
-			support_function: support_functions(:valid),
-			support_center: support_centers(:valid)
+			support_function: support_functions(:valid_support_function),
+			support_center: support_centers(:valid_support_center)
 		)
 	end
 

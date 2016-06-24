@@ -11,7 +11,7 @@ class UserTest < ActiveSupport::TestCase
 			last_name: 'NewString',
 			email: 'NewString@NewString',
 			password_digest: 'NewString',
-			user_role: user_roles(:valid)
+			user_role: user_roles(:valid_user_role)
 		)
 		@new_user.password = 'NewString'
 		@new_user.password_confirmation = 'NewString'
@@ -22,7 +22,7 @@ class UserTest < ActiveSupport::TestCase
 			last_name: 'MyString',
 			email: 'MyString@MyString',
 			password_digest: 'MyString',
-			user_role: user_roles(:valid)
+			user_role: user_roles(:valid_user_role)
 		)
 		@duplicate_user.password = 'MyString'
 		@duplicate_user.password_confirmation = 'MyString'
