@@ -1,9 +1,5 @@
 # Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
 
-one:
+valid:
   name: MyString
-  website_url: MyString
-
-two:
-  name: MyString2
   website_url: MyString

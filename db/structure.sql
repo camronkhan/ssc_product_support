@@ -553,7 +553,7 @@ ALTER SEQUENCE source_locations_id_seq OWNED BY source_locations.id;
 
 CREATE TABLE source_types (
     id integer NOT NULL,
-    type character varying NOT NULL,
+    name character varying NOT NULL,
     created_at timestamp without time zone NOT NULL,
     updated_at timestamp without time zone NOT NULL
 );
@@ -1416,10 +1416,10 @@ CREATE UNIQUE INDEX index_source_locations_on_name ON source_locations USING btr
 
 
 --
--- Name: index_source_types_on_type; Type: INDEX; Schema: public; Owner: -
+-- Name: index_source_types_on_name; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE UNIQUE INDEX index_source_types_on_type ON source_types USING btree (type);
+CREATE UNIQUE INDEX index_source_types_on_name ON source_types USING btree (name);
 
 
 --

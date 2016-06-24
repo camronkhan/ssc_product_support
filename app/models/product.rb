@@ -14,4 +14,14 @@ class Product < ActiveRecord::Base
 	has_many :links, as: :linkable
 	has_many :notes, as: :annotatable
 	acts_as_taggable
+
+	# Validations
+	validates :name, presence: true, uniqueness: { case_sensitive: false }
+  	validates :manufacturer, presence: true
+  	validates_associated :manufacturer
+    validates :source_type, presence: true
+    validates_associated :source_type
+    validates :source_location, presence: true
+    validates_associated :source_location
+    
 end
