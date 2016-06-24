@@ -26,4 +26,5 @@ class LinkTest < ActiveSupport::TestCase
 		assert @new_link.invalid?
 		assert_not @new_link.save
 	end
+	
 end
