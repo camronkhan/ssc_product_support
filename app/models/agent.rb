@@ -13,4 +13,13 @@ class Agent < ActiveRecord::Base
 	has_many :emails, as: :emailable
 	has_many :phones, as: :phonable
 	has_many :notes, as: :annotatable
+
+	# Validations
+	validates :name, presence: true, uniqueness: { case_sensitive: false }
+	validates_inclusion_of :operates24x7, in: [true, false]
+	validates :support_function, presence: true
+	validates_associated :support_function
+	validates :support_center, presence: true
+	validates_associated :support_center
+	
 end

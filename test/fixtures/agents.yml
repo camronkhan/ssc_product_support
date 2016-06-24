@@ -1,6 +1,6 @@
 # Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
 
-one:
+valid:
   name: MyString
   operates24x7: false
   support_function_id: 1
