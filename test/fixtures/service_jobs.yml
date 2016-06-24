@@ -2,10 +2,10 @@
 
 one:
   condition: MyString
-  product_id: 
-  servicer_id: 
+  product_id: 1
+  servicer_id: 1
 
 two:
-  condition: MyString
-  product_id: 
-  servicer_id: 
+  condition: MyString2
+  product_id: 1
+  servicer_id: 1

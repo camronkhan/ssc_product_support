@@ -10,7 +10,7 @@ one:
   country: MyString
 
 two:
-  company: MyString
+  company: MyString2
   line_1: MyString
   line_2: MyString
   city: MyString

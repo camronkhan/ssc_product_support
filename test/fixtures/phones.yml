@@ -6,6 +6,6 @@ one:
   description: MyString
 
 two:
-  number: MyString
+  number: MyString2
   option: MyString
   description: MyString

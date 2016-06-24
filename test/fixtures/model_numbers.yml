@@ -3,9 +3,9 @@
 one:
   model: MyString
   description: MyString
-  product_id: 
+  product_id: 1
 
 two:
-  model: MyString
+  model: MyString2
   description: MyString
-  product_id: 
+  product_id: 1

@@ -4,14 +4,14 @@ one:
   name: MyString
   description: MyString
   image_url: MyString
-  manufacturer_id: 
-  source_type_id: 
-  source_location_id: 
+  manufacturer_id: 1
+  source_type_id: 1
+  source_location_id: 1
 
 two:
-  name: MyString
+  name: MyString2
   description: MyString
   image_url: MyString
-  manufacturer_id: 
-  source_type_id: 
-  source_location_id: 
+  manufacturer_id: 1
+  source_type_id: 1
+  source_location_id: 1

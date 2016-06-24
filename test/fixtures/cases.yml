@@ -5,5 +5,5 @@ one:
   description: MyString
 
 two:
-  queue: MyString
+  queue: MyString2
   description: MyString

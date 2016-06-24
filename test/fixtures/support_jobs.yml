@@ -2,12 +2,12 @@
 
 one:
   condition: MyString
-  references: 
-  references: 
-  references: 
+  product_id: 1
+  support_type_id: 1
+  agent_id: 1
 
 two:
-  condition: MyString
-  references: 
-  references: 
-  references: 
+  condition: MyString2
+  product_id: 1
+  support_type_id: 1
+  agent_id: 1 

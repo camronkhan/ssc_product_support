@@ -3,11 +3,11 @@
 one:
   open: 2016-06-23 12:33:24
   close: 2016-06-23 12:33:24
-  agent_id: 
-  day_id: 
+  agent_id: 1
+  day_id: 1
 
 two:
   open: 2016-06-23 12:33:24
   close: 2016-06-23 12:33:24
-  agent_id: 
-  day_id: 
+  agent_id: 1
+  day_id: 1

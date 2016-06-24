@@ -3,11 +3,11 @@
 one:
   name: MyString
   operates24x7: false
-  support_function_id: 
-  support_center_id: 
+  support_function_id: 1
+  support_center_id: 1
 
 two:
-  name: MyString
+  name: MyString2
   operates24x7: false
-  support_function_id: 
-  support_center_id: 
+  support_function_id: 1
+  support_center_id: 1

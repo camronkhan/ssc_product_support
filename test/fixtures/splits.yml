@@ -3,9 +3,9 @@
 one:
   queue: MyString
   description: MyString
-  agent_id: 
+  agent_id: 1
 
 two:
-  queue: MyString
+  queue: MyString2
   description: MyString
-  agent_id: 
+  agent_id: 1
