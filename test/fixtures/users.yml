@@ -6,5 +6,5 @@ valid:
   last_name: Khan
   email: camron.khan@motorolasolutions.com
   password_digest: hashpass
-  user_role_id: :valid_role
+  user_role_id: 1
 
