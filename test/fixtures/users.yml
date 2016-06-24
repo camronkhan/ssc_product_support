@@ -1,10 +1,10 @@
 # Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
 
 valid:
-  core_id: nmq687
-  first_name: Camron
-  last_name: Khan
-  email: camron.khan@motorolasolutions.com
-  password_digest: hashpass
+  core_id: MyString
+  first_name: MyString
+  last_name: MyString
+  email: MyString@MyString
+  password_digest: MyString
   user_role_id: 999
 
