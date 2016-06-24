@@ -31,3 +31,4 @@ class ManufacturerTest < ActiveSupport::TestCase
 	end
 
 end
+
