@@ -19,7 +19,6 @@ class ModelNumberTest < ActiveSupport::TestCase
 	end
 
 	test "valid model must be saved" do
-		byebug
 		assert @new_model.valid?
 		assert @new_model.save
 	end
