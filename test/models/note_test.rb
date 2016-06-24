@@ -18,4 +18,5 @@ class NoteTest < ActiveSupport::TestCase
 		assert @new_note.invalid?
 		assert_not @new_note.save
 	end
+	
 end
