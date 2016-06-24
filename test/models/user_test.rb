@@ -63,7 +63,7 @@ class UserTest < ActiveSupport::TestCase
 	end
 
 	test "email address must contain @ symbol" do
-		@new_user.email = 'camron.khan#motorolasolutions.com'
+		@new_user.email = 'NewString#NewString.com'
 		assert @new_user.invalid?
 		assert_not @new_user.save
 	end
@@ -81,14 +81,14 @@ class UserTest < ActiveSupport::TestCase
 	end
 
 	test "password and confirmation must match" do
-		@new_user.password_confirmation = 'password1'
+		@new_user.password_confirmation = 'password'
 		assert @new_user.invalid?
 		assert_not @new_user.save
 	end
 
 	test "password length must be at least 6 characters" do
-		@new_user.password = 'pass'
-		@new_user.password_confirmation = 'pass'
+		@new_user.password = 'New'
+		@new_user.password_confirmation = 'New'
 		assert @new_user.invalid?
 		assert_not @new_user.save
 	end

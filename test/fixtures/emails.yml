@@ -1,9 +1,9 @@
 # Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
 
-one:
-  address: MyString
+valid:
+  address: MyString@MyString
   description: MyString
 
 two:
-  address: MyString2
+  address: MyString2@MyString2
   description: MyString
