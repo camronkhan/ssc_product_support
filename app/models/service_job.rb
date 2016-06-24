@@ -6,4 +6,12 @@ class ServiceJob < ActiveRecord::Base
 
 	# Polymorphic Attributes
 	has_many :notes, as: :annotatable
+
+	# Validations
+	validates :condition, presence: true
+	validates :product, presence: true
+	validates_associated :product
+	validates :servicer, presence: true
+	validates_associated :servicer
+
 end
