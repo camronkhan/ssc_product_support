@@ -8,3 +8,10 @@ valid:
   password_digest: MyString
   user_role_id: 999
 
+two:
+  core_id: MyString2
+  first_name: MyString
+  last_name: MyString
+  email: MyString2@MyString2
+  password_digest: MyString
+  user_role_id: 999

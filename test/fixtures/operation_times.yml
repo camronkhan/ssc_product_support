@@ -1,6 +1,6 @@
 # Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
 
-one:
+valid:
   open: 2016-06-23 12:33:24
   close: 2016-06-23 12:33:24
   agent_id: 1

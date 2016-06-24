@@ -2,3 +2,6 @@
 
 valid:
   name: MyString
+
+two:
+  name: MyString2

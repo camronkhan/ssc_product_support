@@ -7,3 +7,11 @@ valid:
   manufacturer_id: 999
   source_type_id: 999
   source_location_id: 999
+
+two:
+  name: MyString2
+  description: MyString
+  image_url: MyString
+  manufacturer_id: 999
+  source_type_id: 999
+  source_location_id: 999
