@@ -29,4 +29,5 @@ class CaseTest < ActiveSupport::TestCase
 		assert @new_queue.invalid?
 		assert_not @new_queue.save
 	end
+	
 end
