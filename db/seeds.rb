@@ -6,13 +6,13 @@ UserRole.create ([
 ])
 
 Day.create([
-	{ day: 'Sunday' },
-	{ day: 'Monday' },
-	{ day: 'Tuesday' },
-	{ day: 'Wednesday' },
-	{ day: 'Thursday' },
-	{ day: 'Friday' },
-	{ day: 'Saturday' }
+	{ name: 'Sunday' },
+	{ name: 'Monday' },
+	{ name: 'Tuesday' },
+	{ name: 'Wednesday' },
+	{ name: 'Thursday' },
+	{ name: 'Friday' },
+	{ name: 'Saturday' }
 ])
 
 SupportCenter.create([
