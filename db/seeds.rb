@@ -5,6 +5,13 @@ UserRole.create ([
 	{ name: 'External Reader', description: 'Read-only for non-protected information' }
 ])
 
+User.create ([
+	{ core_id: 'administratorTest', first_name: 'Administrator', last_name: 'Test', email: 'admin.test@motorolasolutions.com', password_digest: User.digest('password'), user_role: 1 },
+	{ core_id: 'subjectMatterExpertTest', first_name: 'Subject Matter Expert', last_name: 'Test', email: 'sme.test@motorolasolutions.com', password_digest: User.digest('password'), user_role: 2 },
+	{ core_id: 'internalReaderTest', first_name: 'Internal Reader', last_name: 'Test', email: 'int-reader.test@motorolasolutions.com', password_digest: User.digest('password'), user_role: 3 },
+	{ core_id: 'externalReaderTest', first_name: 'External Reader', last_name: 'Test', email: 'ext-reader.test@motorolasolutions.com', password_digest: User.digest('password'), user_role: 4 }
+])
+
 Day.create([
 	{ name: 'Sunday' },
 	{ name: 'Monday' },
@@ -30,3 +37,4 @@ SupportType.create([
 	{ name: 'Service Desk' },
 	{ name: 'Technical Support' }
 ])
+
