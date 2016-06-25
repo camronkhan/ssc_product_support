@@ -5,7 +5,7 @@ valid_user:
   first_name: MyString
   last_name: MyString
   email: MyString@MyString
-  password_digest: MyString
+  password_digest: <%= User.digest('MyString') %>
   user_role: valid_user_role
 
 two:
@@ -13,5 +13,5 @@ two:
   first_name: MyString
   last_name: MyString
   email: MyString2@MyString2
-  password_digest: MyString
+  password_digest: <%= User.digest('MyString') %>
   user_role: valid_user_role

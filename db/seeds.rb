@@ -1,8 +1,8 @@
 UserRole.create ([
 	{ name: 'Administrator', description: 'Create, read, update, and delete all objects' },
 	{ name: 'Subject Matter Expert', description: 'Create, update, and delete products; Read-only for all other objects' },
-	{ name: 'Internal User', description: 'Read-only for all objects' },
-	{ name: 'External User', description: 'Read-only for non-protected information' }
+	{ name: 'Internal Reader', description: 'Read-only for all objects' },
+	{ name: 'External Reader', description: 'Read-only for non-protected information' }
 ])
 
 Day.create([
