@@ -31,10 +31,21 @@ SupportCenter.create([
 	{ name: 'North America (NA) Marketing Call Center (MCC)' }
 ])
 
-SupportType.create([
-	{ name: 'Support Type Information Not Available' },
+SupportFunction.create([
+	{ name: 'Support Function Information Not Available' },
 	{ name: 'Other' },
 	{ name: 'Service Desk' },
 	{ name: 'Technical Support' }
+])
+
+SupportType.create([
+	{ name: 'Support Type Information Not Available' },
+	{ name: 'Other' },
+	{ name: 'Presale' },
+	{ name: 'Order' },
+	{ name: 'Return' },
+	{ name: 'Warranty Replacement' },
+	{ name: 'Technical Support' },
+	{ name: 'Repair' }
 ])
 
