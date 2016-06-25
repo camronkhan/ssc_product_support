@@ -99,15 +99,15 @@ Servicer.create([
 	{ name: 'CCS Consumer Radio', internal_phone: 'XGPS-CCS Consumer' }
 ])
 
-Address.create([
-	{ value_id: , value_type: 'Servicer', company: 'Motorola Solutions Service Center', line_1: '1220 Don Haskins Drive', line_2: 'Suite A', city: 'El Paso', state_province: 'TX', postal_code: '79936', country: 'United States' },
-	{ value_id: , value_type: 'Servicer', company: 'Motorola Solutions Service Center - Subscriber', line_1: '2204 Galvin Drive', city: 'Elgin', state_province: 'IL', postal_code: '60124', country: 'United States' },
-	{ value_id: , value_type: 'Servicer', company: 'Motorola Solutions Service Center', line_1: '2208 Galvin Drive', city: 'Elgin', state_province: 'IL', postal_code: '60124', country: 'United States' },
-	{ value_id: , value_type: 'Servicer', company: 'Motorola Solutions Service Center - Test Equipment', line_1: '2216 Galvin Drive', city: 'Elgin', state_province: 'IL', postal_code: '60124', country: 'United States' },
-	{ value_id: , value_type: 'Servicer', company: 'Motorola Solutions IDO Repair', line_1: '2214 Galvin Drive', city: 'Elgin', state_province: 'IL', postal_code: '60124', country: 'United States' },
-	{ value_id: , value_type: 'Servicer', company: 'Motorola Solutions Federal Technical Center', line_1: '10105 Senate Drive', city: 'Lanham', state_province: 'MD', postal_code: '20706', country: 'United States' },
-	{ value_id: , value_type: 'Servicer', company: 'Motorola Solutions Canadian Technical Logistics Center', line_1: '181 Whitehall Drive', city: 'Markham', state_province: 'Ontario', postal_code: 'L3R 9T1', country: 'Canada' },
-	{ value_id: , value_type: 'Servicer', company: 'Motorola Solutions Returned Goods', line_1: '2222 Galvin Drive', city: 'Elgin', state_province: 'IL', postal_code: '60124', country: 'United States' },
-	{ value_id: , value_type: 'Servicer', company: 'Motorola Solutions Warranty Department', line_1: '2222 Galvin Drive', city: 'Elgin', state_province: 'IL', postal_code: '60124', country: 'United States' },
-	{ value_id: , value_type: 'Servicer', company: 'Vertex Standard Service Center', line_1: '7201-A Intermodal Drive', city: 'Louisville', state_province: 'KY', postal_code: '40258', country: 'United States' }
+Servicer.create([
+	{ name: 'Motorola Solutions Service Center, El Paso', line_1: '1220 Don Haskins Drive', line_2: 'Suite A', city: 'El Paso', state_province: 'TX', postal_code: '79936', country: 'United States' },
+	{ name: 'Motorola Solutions Service Center, Elgin - Subscriber', line_1: '2204 Galvin Drive', city: 'Elgin', state_province: 'IL', postal_code: '60124', country: 'United States' },
+	{ name: 'Motorola Solutions Service Center, Elgin - Laptops', line_1: '2208 Galvin Drive', city: 'Elgin', state_province: 'IL', postal_code: '60124', country: 'United States' },
+	{ name: 'Motorola Solutions Service Center, Elgin - Test Equipment', line_1: '2216 Galvin Drive', city: 'Elgin', state_province: 'IL', postal_code: '60124', country: 'United States' },
+	{ name: 'Motorola Solutions Infrastructure Depot Operations (IDO)', line_1: '2214 Galvin Drive', city: 'Elgin', state_province: 'IL', postal_code: '60124', country: 'United States' },
+	{ name: 'Motorola Solutions Federal Technical Center (FTC)', line_1: '10105 Senate Drive', city: 'Lanham', state_province: 'MD', postal_code: '20706', country: 'United States' },
+	{ name: 'Motorola Solutions Canadian Technical Logistics Center (CTLC)', line_1: '181 Whitehall Drive', city: 'Markham', state_province: 'Ontario', postal_code: 'L3R 9T1', country: 'Canada' },
+	{ name: 'Motorola Solutions Returned Goods', line_1: '2222 Galvin Drive', city: 'Elgin', state_province: 'IL', postal_code: '60124', country: 'United States' },
+	{ name: 'Motorola Solutions Warranty Department', line_1: '2222 Galvin Drive', city: 'Elgin', state_province: 'IL', postal_code: '60124', country: 'United States' },
+	{ name: 'Vertex Standard Service Center', line_1: '7201-A Intermodal Drive', city: 'Louisville', state_province: 'KY', postal_code: '40258', country: 'United States' }
 ])
