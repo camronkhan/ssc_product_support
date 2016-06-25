@@ -19,15 +19,15 @@ class SupportJobTest < ActiveSupport::TestCase
 			agent: agents(:valid_agent)
 		)
 	end
-
+	
 	test "valid job must be saved" do
 		assert @new_job.valid?
 		assert @new_job.save
 	end
 
 	test "duplicate job must not be saved" do
-		assert @duplicate_job.valid?, "Cannot have duplicate combo of product, support type, agent, and condition"
-		assert @duplicate_job.save, "Cannot have duplicate combo of product, support type, agent, and condition"
+		assert @duplicate_job.invalid?, "Cannot have duplicate combo of product, support type, agent, and condition"
+		assert_not @duplicate_job.save, "Cannot have duplicate combo of product, support type, agent, and condition"
 	end
 
 	test "job condition must be present" do

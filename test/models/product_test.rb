@@ -2,14 +2,14 @@ require 'test_helper'
 
 class ProductTest < ActiveSupport::TestCase
   
-  fixtures :manufacturers, :source_types, :source_locations
+  fixtures :companies, :source_types, :source_locations
 
   	def setup
   		@new_product = Product.create(
 			name: 'NewString',
 			description: 'NewString',
 			image_url: 'NewString',
-			manufacturer: manufacturers(:valid_manufacturer),
+			company: companies(:valid_company),
 			source_type: source_types(:valid_source_type),
 			source_location: source_locations(:valid_source_location)
 		)
@@ -18,7 +18,7 @@ class ProductTest < ActiveSupport::TestCase
 			name: 'MyString',
 			description: 'MyString',
 			image_url: 'MyString',
-			manufacturer: manufacturers(:valid_manufacturer),
+			company: companies(:valid_company),
 			source_type: source_types(:valid_source_type),
 			source_location: source_locations(:valid_source_location)
 		)
@@ -40,8 +40,8 @@ class ProductTest < ActiveSupport::TestCase
 		assert_not @new_product.save
 	end
 
-	test "product must be associated with a manufacturer" do
-		@new_product.manufacturer = nil
+	test "product must be associated with a company" do
+		@new_product.company = nil
 		assert @new_product.invalid?
 		assert_not @new_product.save
 	end

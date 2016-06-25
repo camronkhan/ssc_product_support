@@ -1,4 +1,4 @@
-class Manufacturer < ActiveRecord::Base
+class Company < ActiveRecord::Base
 
 	# Relations
 	has_many :products

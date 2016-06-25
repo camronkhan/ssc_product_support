@@ -1,6 +1,6 @@
 # Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
 
-valid_manufacturer:
+valid_company:
   name: MyString
   website_url: MyString
 

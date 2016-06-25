@@ -141,6 +141,38 @@ ALTER SEQUENCE cases_id_seq OWNED BY cases.id;
 
 
 --
+-- Name: companies; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE companies (
+    id integer NOT NULL,
+    name character varying NOT NULL,
+    website_url character varying,
+    created_at timestamp without time zone NOT NULL,
+    updated_at timestamp without time zone NOT NULL
+);
+
+
+--
+-- Name: companies_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+CREATE SEQUENCE companies_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: companies_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+--
+
+ALTER SEQUENCE companies_id_seq OWNED BY companies.id;
+
+
+--
 -- Name: days; Type: TABLE; Schema: public; Owner: -
 --
 
@@ -238,38 +270,6 @@ CREATE SEQUENCE links_id_seq
 --
 
 ALTER SEQUENCE links_id_seq OWNED BY links.id;
-
-
---
--- Name: manufacturers; Type: TABLE; Schema: public; Owner: -
---
-
-CREATE TABLE manufacturers (
-    id integer NOT NULL,
-    name character varying NOT NULL,
-    website_url character varying,
-    created_at timestamp without time zone NOT NULL,
-    updated_at timestamp without time zone NOT NULL
-);
-
-
---
--- Name: manufacturers_id_seq; Type: SEQUENCE; Schema: public; Owner: -
---
-
-CREATE SEQUENCE manufacturers_id_seq
-    START WITH 1
-    INCREMENT BY 1
-    NO MINVALUE
-    NO MAXVALUE
-    CACHE 1;
-
-
---
--- Name: manufacturers_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
---
-
-ALTER SEQUENCE manufacturers_id_seq OWNED BY manufacturers.id;
 
 
 --
@@ -416,7 +416,7 @@ CREATE TABLE products (
     name character varying NOT NULL,
     description character varying,
     image_url character varying,
-    manufacturer_id integer NOT NULL,
+    company_id integer NOT NULL,
     source_type_id integer NOT NULL,
     source_location_id integer NOT NULL,
     created_at timestamp without time zone NOT NULL,
@@ -897,6 +897,13 @@ ALTER TABLE ONLY cases ALTER COLUMN id SET DEFAULT nextval('cases_id_seq'::regcl
 -- Name: id; Type: DEFAULT; Schema: public; Owner: -
 --
 
+ALTER TABLE ONLY companies ALTER COLUMN id SET DEFAULT nextval('companies_id_seq'::regclass);
+
+
+--
+-- Name: id; Type: DEFAULT; Schema: public; Owner: -
+--
+
 ALTER TABLE ONLY days ALTER COLUMN id SET DEFAULT nextval('days_id_seq'::regclass);
 
 
@@ -912,13 +919,6 @@ ALTER TABLE ONLY emails ALTER COLUMN id SET DEFAULT nextval('emails_id_seq'::reg
 --
 
 ALTER TABLE ONLY links ALTER COLUMN id SET DEFAULT nextval('links_id_seq'::regclass);
-
-
---
--- Name: id; Type: DEFAULT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY manufacturers ALTER COLUMN id SET DEFAULT nextval('manufacturers_id_seq'::regclass);
 
 
 --
@@ -1072,6 +1072,14 @@ ALTER TABLE ONLY cases
 
 
 --
+-- Name: companies_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY companies
+    ADD CONSTRAINT companies_pkey PRIMARY KEY (id);
+
+
+--
 -- Name: days_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
@@ -1093,14 +1101,6 @@ ALTER TABLE ONLY emails
 
 ALTER TABLE ONLY links
     ADD CONSTRAINT links_pkey PRIMARY KEY (id);
-
-
---
--- Name: manufacturers_pkey; Type: CONSTRAINT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY manufacturers
-    ADD CONSTRAINT manufacturers_pkey PRIMARY KEY (id);
 
 
 --
@@ -1304,6 +1304,13 @@ CREATE UNIQUE INDEX index_cases_on_queue ON cases USING btree (queue);
 
 
 --
+-- Name: index_companies_on_name; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE UNIQUE INDEX index_companies_on_name ON companies USING btree (name);
+
+
+--
 -- Name: index_days_on_name; Type: INDEX; Schema: public; Owner: -
 --
 
@@ -1315,13 +1322,6 @@ CREATE UNIQUE INDEX index_days_on_name ON days USING btree (name);
 --
 
 CREATE UNIQUE INDEX index_emails_on_address ON emails USING btree (address);
-
-
---
--- Name: index_manufacturers_on_name; Type: INDEX; Schema: public; Owner: -
---
-
-CREATE UNIQUE INDEX index_manufacturers_on_name ON manufacturers USING btree (name);
 
 
 --
@@ -1353,10 +1353,10 @@ CREATE INDEX index_operation_times_on_day_id ON operation_times USING btree (day
 
 
 --
--- Name: index_products_on_manufacturer_id; Type: INDEX; Schema: public; Owner: -
+-- Name: index_products_on_company_id; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_products_on_manufacturer_id ON products USING btree (manufacturer_id);
+CREATE INDEX index_products_on_company_id ON products USING btree (company_id);
 
 
 --
@@ -1392,6 +1392,13 @@ CREATE INDEX index_service_jobs_on_product_id ON service_jobs USING btree (produ
 --
 
 CREATE INDEX index_service_jobs_on_product_id_and_servicer_id ON service_jobs USING btree (product_id, servicer_id);
+
+
+--
+-- Name: index_service_jobs_on_product_id_and_servicer_id_and_condition; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE UNIQUE INDEX index_service_jobs_on_product_id_and_servicer_id_and_condition ON service_jobs USING btree (product_id, servicer_id, condition);
 
 
 --
@@ -1465,6 +1472,13 @@ CREATE INDEX index_support_jobs_on_product_id ON support_jobs USING btree (produ
 
 
 --
+-- Name: index_support_jobs_on_product_id_and_agent_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_support_jobs_on_product_id_and_agent_id ON support_jobs USING btree (product_id, agent_id);
+
+
+--
 -- Name: index_support_jobs_on_support_type_id; Type: INDEX; Schema: public; Owner: -
 --
 
@@ -1535,6 +1549,13 @@ CREATE INDEX phonable_index ON phones USING btree (phonable_type, phonable_id);
 
 
 --
+-- Name: support_jobs_index; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE UNIQUE INDEX support_jobs_index ON support_jobs USING btree (product_id, support_type_id, agent_id, condition);
+
+
+--
 -- Name: taggings_idx; Type: INDEX; Schema: public; Owner: -
 --
 
@@ -1573,11 +1594,11 @@ ALTER TABLE ONLY support_jobs
 
 
 --
--- Name: fk_rails_33082c31de; Type: FK CONSTRAINT; Schema: public; Owner: -
+-- Name: fk_rails_438d5b34ce; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY products
-    ADD CONSTRAINT fk_rails_33082c31de FOREIGN KEY (manufacturer_id) REFERENCES manufacturers(id);
+    ADD CONSTRAINT fk_rails_438d5b34ce FOREIGN KEY (company_id) REFERENCES companies(id);
 
 
 --

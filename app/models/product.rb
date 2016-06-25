@@ -1,7 +1,7 @@
 class Product < ActiveRecord::Base
 
 	# Relations
-	belongs_to :manufacturer
+	belongs_to :company
 	belongs_to :source_type
 	belongs_to :source_location
 	has_many :model_numbers
@@ -17,8 +17,8 @@ class Product < ActiveRecord::Base
 
 	# Validations
 	validates :name, presence: true, uniqueness: { case_sensitive: false }
-  	validates :manufacturer, presence: true
-  	validates_associated :manufacturer
+  	validates :company, presence: true
+  	validates_associated :company
     validates :source_type, presence: true
     validates_associated :source_type
     validates :source_location, presence: true

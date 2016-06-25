@@ -24,8 +24,8 @@ class ServiceJobTest < ActiveSupport::TestCase
 	end
 
 	test "duplicate job must not be saved" do
-		assert @duplicate_job.valid?, "Cannot have duplicate combo of product, servicer, and condition"
-		assert @duplicate_job.save, "Cannot have duplicate combo of product, servicer, and condition"
+		assert @duplicate_job.invalid?, "Cannot have duplicate combo of product, servicer, and condition"
+		assert_not @duplicate_job.save, "Cannot have duplicate combo of product, servicer, and condition"
 	end
 
 	test "job condition must be present" do
