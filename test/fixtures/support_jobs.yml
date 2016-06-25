@@ -3,11 +3,11 @@
 valid_support_job:
   condition: MyString
   product: valid_product
-  support_type: valid_support_type
+  job_type: valid_job_type
   agent: valid_agent
 
 two:
   condition: MyString2
   product: valid_product
-  support_type: valid_support_type
+  job_type: valid_job_type
   agent: valid_agent

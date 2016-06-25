@@ -1,13 +1,13 @@
 require 'test_helper'
 
-class SupportTypeTest < ActiveSupport::TestCase
+class JobTypeTest < ActiveSupport::TestCase
 
 	def setup
-		@new_type = SupportType.create(
+		@new_type = JobType.create(
 			name: 'NewString'
 		)
 
-		@duplicate_type = SupportType.create(
+		@duplicate_type = JobType.create(
 			name: 'MyString'
 		)
 	end

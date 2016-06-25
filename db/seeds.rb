@@ -39,7 +39,7 @@ SupportFunction.create([
 	{ name: 'Technical Support' }
 ])
 
-SupportType.create([
+JobType.create([
 	{ name: 'Not Applicacble' },
 	{ name: 'Unknown' },
 	{ name: 'Presale' },
@@ -47,14 +47,6 @@ SupportType.create([
 	{ name: 'Return' },
 	{ name: 'Warranty Replacement' },
 	{ name: 'Technical Support' },
-	{ name: 'Repair' }
-])
-
-ServiceType.create([
-	{ name: 'Not Applicacble' },
-	{ name: 'Unknown' },
-	{ name: 'Return' },
-	{ name: 'Warranty Replacement' },
 	{ name: 'Repair' }
 ])
 

@@ -238,6 +238,37 @@ ALTER SEQUENCE emails_id_seq OWNED BY emails.id;
 
 
 --
+-- Name: job_types; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE job_types (
+    id integer NOT NULL,
+    name character varying NOT NULL,
+    created_at timestamp without time zone NOT NULL,
+    updated_at timestamp without time zone NOT NULL
+);
+
+
+--
+-- Name: job_types_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+CREATE SEQUENCE job_types_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: job_types_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+--
+
+ALTER SEQUENCE job_types_id_seq OWNED BY job_types.id;
+
+
+--
 -- Name: links; Type: TABLE; Schema: public; Owner: -
 --
 
@@ -461,6 +492,7 @@ CREATE TABLE service_jobs (
     condition character varying DEFAULT 'All'::character varying NOT NULL,
     product_id integer NOT NULL,
     servicer_id integer NOT NULL,
+    job_type_id integer NOT NULL,
     created_at timestamp without time zone NOT NULL,
     updated_at timestamp without time zone NOT NULL
 );
@@ -492,6 +524,12 @@ ALTER SEQUENCE service_jobs_id_seq OWNED BY service_jobs.id;
 CREATE TABLE servicers (
     id integer NOT NULL,
     name character varying NOT NULL,
+    address_1 character varying NOT NULL,
+    address_2 character varying,
+    city character varying NOT NULL,
+    state_province character varying NOT NULL,
+    postal_code character varying NOT NULL,
+    country character varying NOT NULL,
     created_at timestamp without time zone NOT NULL,
     updated_at timestamp without time zone NOT NULL
 );
@@ -681,8 +719,8 @@ CREATE TABLE support_jobs (
     id integer NOT NULL,
     condition character varying NOT NULL,
     product_id integer NOT NULL,
-    support_type_id integer NOT NULL,
     agent_id integer NOT NULL,
+    job_type_id integer NOT NULL,
     created_at timestamp without time zone NOT NULL,
     updated_at timestamp without time zone NOT NULL
 );
@@ -705,38 +743,6 @@ CREATE SEQUENCE support_jobs_id_seq
 --
 
 ALTER SEQUENCE support_jobs_id_seq OWNED BY support_jobs.id;
-
-
---
--- Name: support_types; Type: TABLE; Schema: public; Owner: -
---
-
-CREATE TABLE support_types (
-    id integer NOT NULL,
-    name character varying NOT NULL,
-    description character varying,
-    created_at timestamp without time zone NOT NULL,
-    updated_at timestamp without time zone NOT NULL
-);
-
-
---
--- Name: support_types_id_seq; Type: SEQUENCE; Schema: public; Owner: -
---
-
-CREATE SEQUENCE support_types_id_seq
-    START WITH 1
-    INCREMENT BY 1
-    NO MINVALUE
-    NO MAXVALUE
-    CACHE 1;
-
-
---
--- Name: support_types_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
---
-
-ALTER SEQUENCE support_types_id_seq OWNED BY support_types.id;
 
 
 --
@@ -918,6 +924,13 @@ ALTER TABLE ONLY emails ALTER COLUMN id SET DEFAULT nextval('emails_id_seq'::reg
 -- Name: id; Type: DEFAULT; Schema: public; Owner: -
 --
 
+ALTER TABLE ONLY job_types ALTER COLUMN id SET DEFAULT nextval('job_types_id_seq'::regclass);
+
+
+--
+-- Name: id; Type: DEFAULT; Schema: public; Owner: -
+--
+
 ALTER TABLE ONLY links ALTER COLUMN id SET DEFAULT nextval('links_id_seq'::regclass);
 
 
@@ -1016,13 +1029,6 @@ ALTER TABLE ONLY support_jobs ALTER COLUMN id SET DEFAULT nextval('support_jobs_
 -- Name: id; Type: DEFAULT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY support_types ALTER COLUMN id SET DEFAULT nextval('support_types_id_seq'::regclass);
-
-
---
--- Name: id; Type: DEFAULT; Schema: public; Owner: -
---
-
 ALTER TABLE ONLY taggings ALTER COLUMN id SET DEFAULT nextval('taggings_id_seq'::regclass);
 
 
@@ -1093,6 +1099,14 @@ ALTER TABLE ONLY days
 
 ALTER TABLE ONLY emails
     ADD CONSTRAINT emails_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: job_types_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY job_types
+    ADD CONSTRAINT job_types_pkey PRIMARY KEY (id);
 
 
 --
@@ -1208,14 +1222,6 @@ ALTER TABLE ONLY support_jobs
 
 
 --
--- Name: support_types_pkey; Type: CONSTRAINT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY support_types
-    ADD CONSTRAINT support_types_pkey PRIMARY KEY (id);
-
-
---
 -- Name: taggings_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
@@ -1325,6 +1331,13 @@ CREATE UNIQUE INDEX index_emails_on_address ON emails USING btree (address);
 
 
 --
+-- Name: index_job_types_on_name; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE UNIQUE INDEX index_job_types_on_name ON job_types USING btree (name);
+
+
+--
 -- Name: index_model_numbers_on_model; Type: INDEX; Schema: public; Owner: -
 --
 
@@ -1381,6 +1394,13 @@ CREATE INDEX index_products_on_source_type_id ON products USING btree (source_ty
 
 
 --
+-- Name: index_service_jobs_on_job_type_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_service_jobs_on_job_type_id ON service_jobs USING btree (job_type_id);
+
+
+--
 -- Name: index_service_jobs_on_product_id; Type: INDEX; Schema: public; Owner: -
 --
 
@@ -1392,13 +1412,6 @@ CREATE INDEX index_service_jobs_on_product_id ON service_jobs USING btree (produ
 --
 
 CREATE INDEX index_service_jobs_on_product_id_and_servicer_id ON service_jobs USING btree (product_id, servicer_id);
-
-
---
--- Name: index_service_jobs_on_product_id_and_servicer_id_and_condition; Type: INDEX; Schema: public; Owner: -
---
-
-CREATE UNIQUE INDEX index_service_jobs_on_product_id_and_servicer_id_and_condition ON service_jobs USING btree (product_id, servicer_id, condition);
 
 
 --
@@ -1465,6 +1478,13 @@ CREATE INDEX index_support_jobs_on_agent_id ON support_jobs USING btree (agent_i
 
 
 --
+-- Name: index_support_jobs_on_job_type_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_support_jobs_on_job_type_id ON support_jobs USING btree (job_type_id);
+
+
+--
 -- Name: index_support_jobs_on_product_id; Type: INDEX; Schema: public; Owner: -
 --
 
@@ -1476,20 +1496,6 @@ CREATE INDEX index_support_jobs_on_product_id ON support_jobs USING btree (produ
 --
 
 CREATE INDEX index_support_jobs_on_product_id_and_agent_id ON support_jobs USING btree (product_id, agent_id);
-
-
---
--- Name: index_support_jobs_on_support_type_id; Type: INDEX; Schema: public; Owner: -
---
-
-CREATE INDEX index_support_jobs_on_support_type_id ON support_jobs USING btree (support_type_id);
-
-
---
--- Name: index_support_types_on_name; Type: INDEX; Schema: public; Owner: -
---
-
-CREATE UNIQUE INDEX index_support_types_on_name ON support_types USING btree (name);
 
 
 --
@@ -1549,10 +1555,17 @@ CREATE INDEX phonable_index ON phones USING btree (phonable_type, phonable_id);
 
 
 --
+-- Name: service_jobs_index; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE UNIQUE INDEX service_jobs_index ON service_jobs USING btree (product_id, servicer_id, job_type_id, condition);
+
+
+--
 -- Name: support_jobs_index; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE UNIQUE INDEX support_jobs_index ON support_jobs USING btree (product_id, support_type_id, agent_id, condition);
+CREATE UNIQUE INDEX support_jobs_index ON support_jobs USING btree (product_id, agent_id, job_type_id, condition);
 
 
 --
@@ -1650,11 +1663,11 @@ ALTER TABLE ONLY support_jobs
 
 
 --
--- Name: fk_rails_a8d9367ca1; Type: FK CONSTRAINT; Schema: public; Owner: -
+-- Name: fk_rails_bef63769df; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY support_jobs
-    ADD CONSTRAINT fk_rails_a8d9367ca1 FOREIGN KEY (support_type_id) REFERENCES support_types(id);
+    ADD CONSTRAINT fk_rails_bef63769df FOREIGN KEY (job_type_id) REFERENCES job_types(id);
 
 
 --
@@ -1663,6 +1676,14 @@ ALTER TABLE ONLY support_jobs
 
 ALTER TABLE ONLY service_jobs
     ADD CONSTRAINT fk_rails_c133d7f9bb FOREIGN KEY (product_id) REFERENCES products(id);
+
+
+--
+-- Name: fk_rails_efbeb806ad; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY service_jobs
+    ADD CONSTRAINT fk_rails_efbeb806ad FOREIGN KEY (job_type_id) REFERENCES job_types(id);
 
 
 --
@@ -1733,8 +1754,6 @@ INSERT INTO schema_migrations (version) VALUES ('20160623145532');
 
 INSERT INTO schema_migrations (version) VALUES ('20160623162742');
 
-INSERT INTO schema_migrations (version) VALUES ('20160623163421');
-
 INSERT INTO schema_migrations (version) VALUES ('20160623172213');
 
 INSERT INTO schema_migrations (version) VALUES ('20160623173031');
@@ -1750,4 +1769,6 @@ INSERT INTO schema_migrations (version) VALUES ('20160623184153');
 INSERT INTO schema_migrations (version) VALUES ('20160623185700');
 
 INSERT INTO schema_migrations (version) VALUES ('20160623190926');
+
+INSERT INTO schema_migrations (version) VALUES ('20160625184203');
 
