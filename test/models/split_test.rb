@@ -7,13 +7,11 @@ class SplitTest < ActiveSupport::TestCase
 	def setup
 		@new_queue = Split.create(
 			queue: 'NewString',
-			description: 'NewString',
 			agent: agents(:valid_agent)
 		)
 
 		@duplicate_queue = Split.create(
 			queue: 'MyString',
-			description: 'MyString',
 			agent: agents(:valid_agent)
 		)
 	end

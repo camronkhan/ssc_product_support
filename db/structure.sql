@@ -34,45 +34,6 @@ SET default_tablespace = '';
 SET default_with_oids = false;
 
 --
--- Name: addresses; Type: TABLE; Schema: public; Owner: -
---
-
-CREATE TABLE addresses (
-    id integer NOT NULL,
-    company character varying NOT NULL,
-    line_1 character varying NOT NULL,
-    line_2 character varying,
-    city character varying NOT NULL,
-    state_province character varying NOT NULL,
-    postal_code character varying NOT NULL,
-    country character varying NOT NULL,
-    addressable_id integer,
-    addressable_type character varying,
-    created_at timestamp without time zone NOT NULL,
-    updated_at timestamp without time zone NOT NULL
-);
-
-
---
--- Name: addresses_id_seq; Type: SEQUENCE; Schema: public; Owner: -
---
-
-CREATE SEQUENCE addresses_id_seq
-    START WITH 1
-    INCREMENT BY 1
-    NO MINVALUE
-    NO MAXVALUE
-    CACHE 1;
-
-
---
--- Name: addresses_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
---
-
-ALTER SEQUENCE addresses_id_seq OWNED BY addresses.id;
-
-
---
 -- Name: agents; Type: TABLE; Schema: public; Owner: -
 --
 
@@ -623,7 +584,6 @@ ALTER SEQUENCE source_types_id_seq OWNED BY source_types.id;
 CREATE TABLE splits (
     id integer NOT NULL,
     queue character varying NOT NULL,
-    description character varying,
     agent_id integer NOT NULL,
     created_at timestamp without time zone NOT NULL,
     updated_at timestamp without time zone NOT NULL
@@ -882,13 +842,6 @@ ALTER SEQUENCE users_id_seq OWNED BY users.id;
 -- Name: id; Type: DEFAULT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY addresses ALTER COLUMN id SET DEFAULT nextval('addresses_id_seq'::regclass);
-
-
---
--- Name: id; Type: DEFAULT; Schema: public; Owner: -
---
-
 ALTER TABLE ONLY agents ALTER COLUMN id SET DEFAULT nextval('agents_id_seq'::regclass);
 
 
@@ -1051,14 +1004,6 @@ ALTER TABLE ONLY user_roles ALTER COLUMN id SET DEFAULT nextval('user_roles_id_s
 --
 
 ALTER TABLE ONLY users ALTER COLUMN id SET DEFAULT nextval('users_id_seq'::regclass);
-
-
---
--- Name: addresses_pkey; Type: CONSTRAINT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY addresses
-    ADD CONSTRAINT addresses_pkey PRIMARY KEY (id);
 
 
 --
@@ -1251,13 +1196,6 @@ ALTER TABLE ONLY user_roles
 
 ALTER TABLE ONLY users
     ADD CONSTRAINT users_pkey PRIMARY KEY (id);
-
-
---
--- Name: addressable_index; Type: INDEX; Schema: public; Owner: -
---
-
-CREATE INDEX addressable_index ON addresses USING btree (addressable_type, addressable_id);
 
 
 --
@@ -1733,8 +1671,6 @@ INSERT INTO schema_migrations (version) VALUES ('20160623134234');
 INSERT INTO schema_migrations (version) VALUES ('20160623134546');
 
 INSERT INTO schema_migrations (version) VALUES ('20160623135805');
-
-INSERT INTO schema_migrations (version) VALUES ('20160623141123');
 
 INSERT INTO schema_migrations (version) VALUES ('20160623141541');
 

@@ -2,10 +2,8 @@
 
 valid_split:
   queue: MyString
-  description: MyString
   agent: valid_agent
 
 two:
   queue: MyString2
-  description: MyString
   agent: valid_agent
