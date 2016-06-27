@@ -1,7 +1,7 @@
 class CreateSupportJobs < ActiveRecord::Migration
   def change
     create_table :support_jobs do |t|
-      t.string :condition, null: false
+      t.string :condition, null: false, default: 'All'
       t.references :product, index: true, foreign_key: true, null: false
       t.references :agent, index: true, foreign_key: true, null: false
       t.references :job_type, index: true, foreign_key: true, null: false
