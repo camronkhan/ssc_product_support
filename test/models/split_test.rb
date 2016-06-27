@@ -5,37 +5,37 @@ class SplitTest < ActiveSupport::TestCase
 	fixtures :agents
 
 	def setup
-		@new_queue = Split.create(
-			queue: 'NewString',
+		@new_split = Split.create(
+			name: 'NewString',
 			agent: agents(:valid_agent)
 		)
 
-		@duplicate_queue = Split.create(
-			queue: 'MyString',
+		@duplicate_split = Split.create(
+			name: 'MyString',
 			agent: agents(:valid_agent)
 		)
 	end
 
 	test "valid agent must be saved" do
-		assert @new_queue.valid?
-		assert @new_queue.save
+		assert @new_split.valid?
+		assert @new_split.save
 	end
 
 	test "duplicate agent must not be saved" do
-		assert @duplicate_queue.invalid?
-	    assert_not @duplicate_queue.save
+		assert @duplicate_split.invalid?
+	    assert_not @duplicate_split.save
 	end
 
-	test "queue must be present" do
-		@new_queue.queue = ''
-		assert @new_queue.invalid?
-		assert_not @new_queue.save
+	test "split must be present" do
+		@new_split.name = ''
+		assert @new_split.invalid?
+		assert_not @new_split.save
 	end
 
-	test "queue must be associated with an agent" do
-		@new_queue.agent = nil
-		assert @new_queue.invalid?
-		assert_not @new_queue.save
+	test "split must be associated with an agent" do
+		@new_split.agent = nil
+		assert @new_split.invalid?
+		assert_not @new_split.save
 	end
 
 end
