@@ -28,7 +28,7 @@ SupportCenter.create([
 	{ name: 'North America & Latin America (NALA) Solution Support Center (SSC)' },
 	{ name: 'Europe, Middle East, & Africa (EMEA) Solution Support Center (SSC)' },
 	{ name: 'Asia & Pacific (AP) Solution Support Center (SSC)' },
-	{ name: 'North America (NA) Marketing Call Center (MCC)' }
+	{ name: 'North America (NA) Marketing Contact Center (MCC)' }
 ])
 
 SupportFunction.create([
@@ -120,7 +120,7 @@ Agent.create([
 	{ support_function_id: 5, support_center_id: 3, name: 'iDEN - Packet' },
 	{ support_function_id: 5, support_center_id: 3, name: 'iDEN - Portal' },
 	{ support_function_id: 5, support_center_id: 3, name: 'iDEN - Switching' },
-	{ support_function_id: 4, support_center_id: 6, name: 'Marketing Call Center (MCC) - Presale Marketing' },
+	{ support_function_id: 4, support_center_id: 6, name: 'Marketing Contact Center (MCC) - Presale Marketing' },
 	{ support_function_id: 5, support_center_id: 3, name: 'Technical Support Operations (TSO) - Presale Technical' },
 	{ support_function_id: 5, support_center_id: 3, name: 'Smart Public Safety Solutions (SPSS) - Computer Aided Dispatch (CAD)' },
 	{ support_function_id: 5, support_center_id: 3, name: 'Smart Public Safety Solutions (SPSS) - CommandCentral' },
