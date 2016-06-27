@@ -2,7 +2,7 @@ class CreatePhones < ActiveRecord::Migration
   def change
     create_table :phones do |t|
       t.string :number, null: false
-      t.string :option
+      t.text :option, array: true, default: []
       t.string :description
       t.references :phonable, polymorphic: true
       t.timestamps null: false
