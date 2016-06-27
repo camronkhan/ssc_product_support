@@ -485,12 +485,12 @@ ALTER SEQUENCE service_jobs_id_seq OWNED BY service_jobs.id;
 CREATE TABLE servicers (
     id integer NOT NULL,
     name character varying NOT NULL,
-    address_1 character varying NOT NULL,
+    address_1 character varying,
     address_2 character varying,
-    city character varying NOT NULL,
-    state_province character varying NOT NULL,
-    postal_code character varying NOT NULL,
-    country character varying NOT NULL,
+    city character varying,
+    state_province character varying,
+    postal_code character varying,
+    country character varying,
     created_at timestamp without time zone NOT NULL,
     updated_at timestamp without time zone NOT NULL
 );
@@ -677,7 +677,7 @@ ALTER SEQUENCE support_functions_id_seq OWNED BY support_functions.id;
 
 CREATE TABLE support_jobs (
     id integer NOT NULL,
-    condition character varying NOT NULL,
+    condition character varying DEFAULT 'All'::character varying NOT NULL,
     product_id integer NOT NULL,
     agent_id integer NOT NULL,
     job_type_id integer NOT NULL,
