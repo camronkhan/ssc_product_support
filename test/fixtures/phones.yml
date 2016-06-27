@@ -2,10 +2,10 @@
 
 valid_phone_number:
   number: MyString
-  option: MyString
+  option: ['MyString']
   description: MyString
 
 two:
   number: MyString2
-  option: MyString
+  option: ['MyString']
   description: MyString

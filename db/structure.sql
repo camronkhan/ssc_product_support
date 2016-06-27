@@ -371,7 +371,7 @@ ALTER SEQUENCE operation_times_id_seq OWNED BY operation_times.id;
 CREATE TABLE phones (
     id integer NOT NULL,
     number character varying NOT NULL,
-    option character varying,
+    option text[] DEFAULT '{}'::text[],
     description character varying,
     phonable_id integer,
     phonable_type character varying,
@@ -583,7 +583,7 @@ ALTER SEQUENCE source_types_id_seq OWNED BY source_types.id;
 
 CREATE TABLE splits (
     id integer NOT NULL,
-    queue character varying NOT NULL,
+    name character varying NOT NULL,
     agent_id integer NOT NULL,
     created_at timestamp without time zone NOT NULL,
     updated_at timestamp without time zone NOT NULL
@@ -1388,10 +1388,10 @@ CREATE INDEX index_splits_on_agent_id ON splits USING btree (agent_id);
 
 
 --
--- Name: index_splits_on_queue; Type: INDEX; Schema: public; Owner: -
+-- Name: index_splits_on_name; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE UNIQUE INDEX index_splits_on_queue ON splits USING btree (queue);
+CREATE UNIQUE INDEX index_splits_on_name ON splits USING btree (name);
 
 
 --
