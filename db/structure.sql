@@ -417,6 +417,19 @@ CREATE TABLE products (
 
 
 --
+-- Name: product_matview; Type: MATERIALIZED VIEW; Schema: public; Owner: -
+--
+
+CREATE MATERIALIZED VIEW product_matview AS
+ SELECT p.name AS product,
+    p.image_url AS image,
+    c.name AS company
+   FROM (products p
+     LEFT JOIN companies c ON ((p.company_id = c.id)))
+  WITH NO DATA;
+
+
+--
 -- Name: products_id_seq; Type: SEQUENCE; Schema: public; Owner: -
 --
 
@@ -1493,6 +1506,13 @@ CREATE INDEX phonable_index ON phones USING btree (phonable_type, phonable_id);
 
 
 --
+-- Name: product_matview_product_idx; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX product_matview_product_idx ON product_matview USING btree (product);
+
+
+--
 -- Name: service_jobs_index; Type: INDEX; Schema: public; Owner: -
 --
 
@@ -1707,4 +1727,6 @@ INSERT INTO schema_migrations (version) VALUES ('20160623185700');
 INSERT INTO schema_migrations (version) VALUES ('20160623190926');
 
 INSERT INTO schema_migrations (version) VALUES ('20160625184203');
+
+INSERT INTO schema_migrations (version) VALUES ('20160627152009');
 
