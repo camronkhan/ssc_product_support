@@ -41,7 +41,6 @@ CREATE TABLE agents (
     id integer NOT NULL,
     name character varying NOT NULL,
     operates24x7 boolean DEFAULT false NOT NULL,
-    support_function_id integer NOT NULL,
     support_center_id integer NOT NULL,
     created_at timestamp without time zone NOT NULL,
     updated_at timestamp without time zone NOT NULL
@@ -68,25 +67,25 @@ ALTER SEQUENCE agents_id_seq OWNED BY agents.id;
 
 
 --
--- Name: cases; Type: TABLE; Schema: public; Owner: -
+-- Name: case_queues; Type: TABLE; Schema: public; Owner: -
 --
 
-CREATE TABLE cases (
+CREATE TABLE case_queues (
     id integer NOT NULL,
-    queue character varying NOT NULL,
+    name character varying NOT NULL,
     description character varying,
-    caseable_id integer,
-    caseable_type character varying,
+    ticketable_id integer,
+    ticketable_type character varying,
     created_at timestamp without time zone NOT NULL,
     updated_at timestamp without time zone NOT NULL
 );
 
 
 --
--- Name: cases_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+-- Name: case_queues_id_seq; Type: SEQUENCE; Schema: public; Owner: -
 --
 
-CREATE SEQUENCE cases_id_seq
+CREATE SEQUENCE case_queues_id_seq
     START WITH 1
     INCREMENT BY 1
     NO MINVALUE
@@ -95,10 +94,10 @@ CREATE SEQUENCE cases_id_seq
 
 
 --
--- Name: cases_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+-- Name: case_queues_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
 --
 
-ALTER SEQUENCE cases_id_seq OWNED BY cases.id;
+ALTER SEQUENCE case_queues_id_seq OWNED BY case_queues.id;
 
 
 --
@@ -409,7 +408,6 @@ CREATE TABLE products (
     description character varying,
     image_url character varying,
     company_id integer NOT NULL,
-    source_type_id integer NOT NULL,
     source_location_id integer NOT NULL,
     created_at timestamp without time zone NOT NULL,
     updated_at timestamp without time zone NOT NULL
@@ -547,37 +545,6 @@ ALTER SEQUENCE source_locations_id_seq OWNED BY source_locations.id;
 
 
 --
--- Name: source_types; Type: TABLE; Schema: public; Owner: -
---
-
-CREATE TABLE source_types (
-    id integer NOT NULL,
-    name character varying NOT NULL,
-    created_at timestamp without time zone NOT NULL,
-    updated_at timestamp without time zone NOT NULL
-);
-
-
---
--- Name: source_types_id_seq; Type: SEQUENCE; Schema: public; Owner: -
---
-
-CREATE SEQUENCE source_types_id_seq
-    START WITH 1
-    INCREMENT BY 1
-    NO MINVALUE
-    NO MAXVALUE
-    CACHE 1;
-
-
---
--- Name: source_types_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
---
-
-ALTER SEQUENCE source_types_id_seq OWNED BY source_types.id;
-
-
---
 -- Name: splits; Type: TABLE; Schema: public; Owner: -
 --
 
@@ -638,37 +605,6 @@ CREATE SEQUENCE support_centers_id_seq
 --
 
 ALTER SEQUENCE support_centers_id_seq OWNED BY support_centers.id;
-
-
---
--- Name: support_functions; Type: TABLE; Schema: public; Owner: -
---
-
-CREATE TABLE support_functions (
-    id integer NOT NULL,
-    name character varying NOT NULL,
-    created_at timestamp without time zone NOT NULL,
-    updated_at timestamp without time zone NOT NULL
-);
-
-
---
--- Name: support_functions_id_seq; Type: SEQUENCE; Schema: public; Owner: -
---
-
-CREATE SEQUENCE support_functions_id_seq
-    START WITH 1
-    INCREMENT BY 1
-    NO MINVALUE
-    NO MAXVALUE
-    CACHE 1;
-
-
---
--- Name: support_functions_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
---
-
-ALTER SEQUENCE support_functions_id_seq OWNED BY support_functions.id;
 
 
 --
@@ -849,7 +785,7 @@ ALTER TABLE ONLY agents ALTER COLUMN id SET DEFAULT nextval('agents_id_seq'::reg
 -- Name: id; Type: DEFAULT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY cases ALTER COLUMN id SET DEFAULT nextval('cases_id_seq'::regclass);
+ALTER TABLE ONLY case_queues ALTER COLUMN id SET DEFAULT nextval('case_queues_id_seq'::regclass);
 
 
 --
@@ -947,13 +883,6 @@ ALTER TABLE ONLY source_locations ALTER COLUMN id SET DEFAULT nextval('source_lo
 -- Name: id; Type: DEFAULT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY source_types ALTER COLUMN id SET DEFAULT nextval('source_types_id_seq'::regclass);
-
-
---
--- Name: id; Type: DEFAULT; Schema: public; Owner: -
---
-
 ALTER TABLE ONLY splits ALTER COLUMN id SET DEFAULT nextval('splits_id_seq'::regclass);
 
 
@@ -962,13 +891,6 @@ ALTER TABLE ONLY splits ALTER COLUMN id SET DEFAULT nextval('splits_id_seq'::reg
 --
 
 ALTER TABLE ONLY support_centers ALTER COLUMN id SET DEFAULT nextval('support_centers_id_seq'::regclass);
-
-
---
--- Name: id; Type: DEFAULT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY support_functions ALTER COLUMN id SET DEFAULT nextval('support_functions_id_seq'::regclass);
 
 
 --
@@ -1015,11 +937,11 @@ ALTER TABLE ONLY agents
 
 
 --
--- Name: cases_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+-- Name: case_queues_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY cases
-    ADD CONSTRAINT cases_pkey PRIMARY KEY (id);
+ALTER TABLE ONLY case_queues
+    ADD CONSTRAINT case_queues_pkey PRIMARY KEY (id);
 
 
 --
@@ -1127,14 +1049,6 @@ ALTER TABLE ONLY source_locations
 
 
 --
--- Name: source_types_pkey; Type: CONSTRAINT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY source_types
-    ADD CONSTRAINT source_types_pkey PRIMARY KEY (id);
-
-
---
 -- Name: splits_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
@@ -1148,14 +1062,6 @@ ALTER TABLE ONLY splits
 
 ALTER TABLE ONLY support_centers
     ADD CONSTRAINT support_centers_pkey PRIMARY KEY (id);
-
-
---
--- Name: support_functions_pkey; Type: CONSTRAINT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY support_functions
-    ADD CONSTRAINT support_functions_pkey PRIMARY KEY (id);
 
 
 --
@@ -1206,13 +1112,6 @@ CREATE INDEX annotatable_index ON notes USING btree (annotatable_type, annotatab
 
 
 --
--- Name: caseable_index; Type: INDEX; Schema: public; Owner: -
---
-
-CREATE INDEX caseable_index ON cases USING btree (caseable_type, caseable_id);
-
-
---
 -- Name: emailable_index; Type: INDEX; Schema: public; Owner: -
 --
 
@@ -1234,17 +1133,10 @@ CREATE INDEX index_agents_on_support_center_id ON agents USING btree (support_ce
 
 
 --
--- Name: index_agents_on_support_function_id; Type: INDEX; Schema: public; Owner: -
+-- Name: index_case_queues_on_name; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_agents_on_support_function_id ON agents USING btree (support_function_id);
-
-
---
--- Name: index_cases_on_queue; Type: INDEX; Schema: public; Owner: -
---
-
-CREATE UNIQUE INDEX index_cases_on_queue ON cases USING btree (queue);
+CREATE UNIQUE INDEX index_case_queues_on_name ON case_queues USING btree (name);
 
 
 --
@@ -1325,13 +1217,6 @@ CREATE INDEX index_products_on_source_location_id ON products USING btree (sourc
 
 
 --
--- Name: index_products_on_source_type_id; Type: INDEX; Schema: public; Owner: -
---
-
-CREATE INDEX index_products_on_source_type_id ON products USING btree (source_type_id);
-
-
---
 -- Name: index_service_jobs_on_job_type_id; Type: INDEX; Schema: public; Owner: -
 --
 
@@ -1374,13 +1259,6 @@ CREATE UNIQUE INDEX index_source_locations_on_name ON source_locations USING btr
 
 
 --
--- Name: index_source_types_on_name; Type: INDEX; Schema: public; Owner: -
---
-
-CREATE UNIQUE INDEX index_source_types_on_name ON source_types USING btree (name);
-
-
---
 -- Name: index_splits_on_agent_id; Type: INDEX; Schema: public; Owner: -
 --
 
@@ -1399,13 +1277,6 @@ CREATE UNIQUE INDEX index_splits_on_name ON splits USING btree (name);
 --
 
 CREATE UNIQUE INDEX index_support_centers_on_name ON support_centers USING btree (name);
-
-
---
--- Name: index_support_functions_on_name; Type: INDEX; Schema: public; Owner: -
---
-
-CREATE UNIQUE INDEX index_support_functions_on_name ON support_functions USING btree (name);
 
 
 --
@@ -1514,6 +1385,13 @@ CREATE UNIQUE INDEX taggings_idx ON taggings USING btree (tag_id, taggable_id, t
 
 
 --
+-- Name: ticketable_index; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX ticketable_index ON case_queues USING btree (ticketable_type, ticketable_id);
+
+
+--
 -- Name: unique_schema_migrations; Type: INDEX; Schema: public; Owner: -
 --
 
@@ -1577,14 +1455,6 @@ ALTER TABLE ONLY products
 
 
 --
--- Name: fk_rails_8e60b3914c; Type: FK CONSTRAINT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY products
-    ADD CONSTRAINT fk_rails_8e60b3914c FOREIGN KEY (source_type_id) REFERENCES source_types(id);
-
-
---
 -- Name: fk_rails_92d22c3bb4; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
@@ -1641,14 +1511,6 @@ ALTER TABLE ONLY users
 
 
 --
--- Name: fk_rails_fe1ea0ca5c; Type: FK CONSTRAINT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY agents
-    ADD CONSTRAINT fk_rails_fe1ea0ca5c FOREIGN KEY (support_function_id) REFERENCES support_functions(id);
-
-
---
 -- PostgreSQL database dump complete
 --
 
@@ -1678,13 +1540,9 @@ INSERT INTO schema_migrations (version) VALUES ('20160623141708');
 
 INSERT INTO schema_migrations (version) VALUES ('20160623142115');
 
-INSERT INTO schema_migrations (version) VALUES ('20160623143922');
-
 INSERT INTO schema_migrations (version) VALUES ('20160623144146');
 
 INSERT INTO schema_migrations (version) VALUES ('20160623144405');
-
-INSERT INTO schema_migrations (version) VALUES ('20160623145420');
 
 INSERT INTO schema_migrations (version) VALUES ('20160623145532');
 
