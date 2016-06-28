@@ -5,7 +5,6 @@ valid_product:
   description: MyString
   image_url: MyString
   company: valid_company
-  source_type: valid_source_type
   source_location: valid_source_location
 
 two:
@@ -13,5 +12,4 @@ two:
   description: MyString
   image_url: MyString
   company: valid_company
-  source_type: valid_source_type
   source_location: valid_source_location
