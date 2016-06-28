@@ -8,7 +8,7 @@ class Agent < ActiveRecord::Base
 	has_many :splits
 
 	# Polymorphic Attributes
-	has_many :cases, as: :caseable
+	has_many :case_queues, as: :ticketable
 	has_many :emails, as: :emailable
 	has_many :phones, as: :phonable
 	has_many :notes, as: :annotatable

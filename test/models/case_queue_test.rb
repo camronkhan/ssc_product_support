@@ -1,15 +1,15 @@
 require 'test_helper'
 
-class CaseTest < ActiveSupport::TestCase
+class CaseQueueTest < ActiveSupport::TestCase
   
 	def setup
-		@new_queue = Case.create(
-			queue: 'NewString',
+		@new_queue = CaseQueue.create(
+			name: 'NewString',
 			description: 'NewString'
 		)
 
-		@duplicate_queue = Case.create(
-			queue: 'MyString',
+		@duplicate_queue = CaseQueue.create(
+			name: 'MyString',
 			description: 'MyString'
 		)
 	end
@@ -25,7 +25,7 @@ class CaseTest < ActiveSupport::TestCase
 	end
 
 	test "queue must be present" do
-		@new_queue.queue = ''
+		@new_queue.name = ''
 		assert @new_queue.invalid?
 		assert_not @new_queue.save
 	end
