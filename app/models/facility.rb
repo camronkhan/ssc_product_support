@@ -1,4 +1,4 @@
-class Servicer < ActiveRecord::Base
+class Facility < ActiveRecord::Base
 
 	# Relations
 	has_many :service_jobs

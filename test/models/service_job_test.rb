@@ -2,21 +2,21 @@ require 'test_helper'
 
 class ServiceJobTest < ActiveSupport::TestCase
 
-	fixtures :products, :job_types, :servicers
+	fixtures :products, :job_types, :facilities
 
 	def setup
 		@new_job = ServiceJob.create(
 			condition: 'NewString',
 			product: products(:valid_product),
 			job_type: job_types(:valid_job_type),
-			servicer: servicers(:valid_servicer)
+			facility: facilities(:valid_facility)
 		)
 
 		@duplicate_job = ServiceJob.create(
 			condition: 'MyString',
 			product: products(:valid_product),
 			job_type: job_types(:valid_job_type),
-			servicer: servicers(:valid_servicer)
+			facility: facilities(:valid_facility)
 		)
 	end
 
@@ -26,8 +26,8 @@ class ServiceJobTest < ActiveSupport::TestCase
 	end
 
 	test "duplicate job must not be saved" do
-		assert @duplicate_job.invalid?, "Cannot have duplicate combo of product, job type, servicer, and condition"
-		assert_not @duplicate_job.save, "Cannot have duplicate combo of product, job type, servicer, and condition"
+		assert @duplicate_job.invalid?, "Cannot have duplicate combo of product, job type, facility, and condition"
+		assert_not @duplicate_job.save, "Cannot have duplicate combo of product, job type, facility, and condition"
 	end
 
 	test "job condition must be present" do
@@ -42,8 +42,8 @@ class ServiceJobTest < ActiveSupport::TestCase
 		assert_not @new_job.save
 	end
 
-	test "job must be associated with a servicer" do
-		@new_job.servicer = nil
+	test "job must be associated with a facility" do
+		@new_job.facility = nil
 		assert @new_job.invalid?
 		assert_not @new_job.save
 	end

@@ -1,6 +1,6 @@
-class CreateServicers < ActiveRecord::Migration
+class CreateFacilities < ActiveRecord::Migration
   def change
-    create_table :servicers do |t|
+    create_table :facilities do |t|
       t.string :name, null: false
       t.string :address_1
       t.string :address_2
@@ -10,6 +10,6 @@ class CreateServicers < ActiveRecord::Migration
       t.string :country
       t.timestamps null: false
     end
-    add_index :servicers, :name, unique: true
+    add_index :facilities, :name, unique: true
   end
 end

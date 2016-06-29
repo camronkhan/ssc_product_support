@@ -7,7 +7,7 @@ class Product < ActiveRecord::Base
 	has_many :support_jobs
 	has_many :agents, through: :support_jobs
 	has_many :service_jobs
-	has_many :servicers, through: :service_jobs
+	has_many :facilities, through: :service_jobs
 
 	# Polymorphic Attributes
 	has_many :links, as: :linkable
