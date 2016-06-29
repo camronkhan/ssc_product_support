@@ -471,8 +471,8 @@ ALTER SEQUENCE operation_days_id_seq OWNED BY operation_days.id;
 
 CREATE TABLE operation_times (
     id integer NOT NULL,
-    open time without time zone NOT NULL,
-    close time without time zone NOT NULL,
+    begin time without time zone NOT NULL,
+    "end" time without time zone NOT NULL,
     agent_id integer NOT NULL,
     operation_day_id integer NOT NULL,
     created_at timestamp without time zone NOT NULL,

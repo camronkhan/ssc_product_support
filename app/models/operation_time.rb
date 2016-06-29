@@ -5,8 +5,8 @@ class OperationTime < ActiveRecord::Base
 	belongs_to :operation_day
 
 	# Validations
-	validates :open, presence: true
-	validates :close, presence: true
+	validates :begin, presence: true
+	validates :end, presence: true
 	validates :agent, presence: true
 	validates_associated :agent
 	validates :operation_day, presence: true

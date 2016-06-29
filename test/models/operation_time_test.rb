@@ -6,8 +6,8 @@ class OperationTimeTest < ActiveSupport::TestCase
 
 	def setup
 		@new_operation_time = OperationTime.create(
-			open: '2016-06-23 12:33:24',
-			close: '2016-06-23 12:33:24',
+			begin: '2016-06-23 12:33:24',
+			end: '2016-06-23 12:33:24',
 			agent: agents(:valid_agent),
 			operation_day: operation_days(:valid_operation_day)
 		)
@@ -18,14 +18,14 @@ class OperationTimeTest < ActiveSupport::TestCase
 		assert @new_operation_time.save
 	end
 
-	test "note open time must be present" do
-		@new_operation_time.open = ''
+	test "note begin time must be present" do
+		@new_operation_time.begin = ''
 		assert @new_operation_time.invalid?
 		assert_not @new_operation_time.save
 	end
 
-	test "note close time must be present" do
-		@new_operation_time.close = ''
+	test "note end time must be present" do
+		@new_operation_time.end = ''
 		assert @new_operation_time.invalid?
 		assert_not @new_operation_time.save
 	end
