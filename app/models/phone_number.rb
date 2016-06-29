@@ -1,4 +1,4 @@
-class Phone < ActiveRecord::Base
+class PhoneNumber < ActiveRecord::Base
 	
 	# Relations
 	belongs_to :phonable, polymorphic: true

@@ -230,7 +230,7 @@ Split.create([
 	{ name: 'XGPS-SSC Vertex VSOL', agent_id: 69 }
 ])
 
-Phone.create([
+PhoneNumber.create([
 	{ phonable_type: 'Agent', phonable_id: 42, number: '8002217144', option: ['1'] },
 	{ phonable_type: 'Agent', phonable_id: 57, number: '8002217144', option: ['1', '3'] },
 	{ phonable_type: 'Agent', phonable_id: 59, number: '8002217144', option: ['2', '1', '1'] },

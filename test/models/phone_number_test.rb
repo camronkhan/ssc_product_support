@@ -1,9 +1,9 @@
 require 'test_helper'
 
-class PhoneTest < ActiveSupport::TestCase
+class PhoneNumberTest < ActiveSupport::TestCase
 
 	def setup
-		@new_phone = Phone.create(
+		@new_phone = PhoneNumber.create(
 			number: 'NewString'
 		)
 	end

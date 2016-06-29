@@ -7,7 +7,7 @@ class Servicer < ActiveRecord::Base
 	# Polymorphic Attributes
 	has_many :case_queues, as: :ticketable
 	has_many :emails, as: :emailable
-	has_many :phones, as: :phonable
+	has_many :phone_numbers, as: :phonable
 	has_many :notes, as: :annotatable
 
 	# Validations

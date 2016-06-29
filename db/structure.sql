@@ -364,10 +364,10 @@ ALTER SEQUENCE operation_times_id_seq OWNED BY operation_times.id;
 
 
 --
--- Name: phones; Type: TABLE; Schema: public; Owner: -
+-- Name: phone_numbers; Type: TABLE; Schema: public; Owner: -
 --
 
-CREATE TABLE phones (
+CREATE TABLE phone_numbers (
     id integer NOT NULL,
     number character varying NOT NULL,
     option text[] DEFAULT '{}'::text[],
@@ -380,10 +380,10 @@ CREATE TABLE phones (
 
 
 --
--- Name: phones_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+-- Name: phone_numbers_id_seq; Type: SEQUENCE; Schema: public; Owner: -
 --
 
-CREATE SEQUENCE phones_id_seq
+CREATE SEQUENCE phone_numbers_id_seq
     START WITH 1
     INCREMENT BY 1
     NO MINVALUE
@@ -392,10 +392,10 @@ CREATE SEQUENCE phones_id_seq
 
 
 --
--- Name: phones_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+-- Name: phone_numbers_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
 --
 
-ALTER SEQUENCE phones_id_seq OWNED BY phones.id;
+ALTER SEQUENCE phone_numbers_id_seq OWNED BY phone_numbers.id;
 
 
 --
@@ -848,7 +848,7 @@ ALTER TABLE ONLY operation_times ALTER COLUMN id SET DEFAULT nextval('operation_
 -- Name: id; Type: DEFAULT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY phones ALTER COLUMN id SET DEFAULT nextval('phones_id_seq'::regclass);
+ALTER TABLE ONLY phone_numbers ALTER COLUMN id SET DEFAULT nextval('phone_numbers_id_seq'::regclass);
 
 
 --
@@ -1009,11 +1009,11 @@ ALTER TABLE ONLY operation_times
 
 
 --
--- Name: phones_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+-- Name: phone_numbers_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY phones
-    ADD CONSTRAINT phones_pkey PRIMARY KEY (id);
+ALTER TABLE ONLY phone_numbers
+    ADD CONSTRAINT phone_numbers_pkey PRIMARY KEY (id);
 
 
 --
@@ -1360,7 +1360,7 @@ CREATE INDEX linkable_index ON links USING btree (linkable_type, linkable_id);
 -- Name: phonable_index; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX phonable_index ON phones USING btree (phonable_type, phonable_id);
+CREATE INDEX phonable_index ON phone_numbers USING btree (phonable_type, phonable_id);
 
 
 --
