@@ -4,10 +4,10 @@ valid_operation_time:
   open: 2016-06-23 12:33:24
   close: 2016-06-23 12:33:24
   agent: valid_agent
-  day: valid_day
+  operation_day: valid_operation_day
 
 two:
   open: 2016-06-23 12:33:24
   close: 2016-06-23 12:33:24
   agent: valid_agent
-  day: valid_day
+  operation_day: valid_operation_day

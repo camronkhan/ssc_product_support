@@ -2,14 +2,14 @@ require 'test_helper'
 
 class OperationTimeTest < ActiveSupport::TestCase
 
-	fixtures :agents, :days
+	fixtures :agents, :operation_days
 
 	def setup
 		@new_operation_time = OperationTime.create(
 			open: '2016-06-23 12:33:24',
 			close: '2016-06-23 12:33:24',
 			agent: agents(:valid_agent),
-			day: days(:valid_day)
+			operation_day: operation_days(:valid_operation_day)
 		)
 	end
 
@@ -36,8 +36,8 @@ class OperationTimeTest < ActiveSupport::TestCase
 		assert_not @new_operation_time.save
 	end
 
-	test "agent must be associated with a day" do
-		@new_operation_time.day = nil
+	test "agent must be associated with a operation_day" do
+		@new_operation_time.operation_day = nil
 		assert @new_operation_time.invalid?
 		assert_not @new_operation_time.save
 	end

@@ -164,37 +164,6 @@ ALTER SEQUENCE contact_centers_id_seq OWNED BY contact_centers.id;
 
 
 --
--- Name: days; Type: TABLE; Schema: public; Owner: -
---
-
-CREATE TABLE days (
-    id integer NOT NULL,
-    name character varying NOT NULL,
-    created_at timestamp without time zone NOT NULL,
-    updated_at timestamp without time zone NOT NULL
-);
-
-
---
--- Name: days_id_seq; Type: SEQUENCE; Schema: public; Owner: -
---
-
-CREATE SEQUENCE days_id_seq
-    START WITH 1
-    INCREMENT BY 1
-    NO MINVALUE
-    NO MAXVALUE
-    CACHE 1;
-
-
---
--- Name: days_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
---
-
-ALTER SEQUENCE days_id_seq OWNED BY days.id;
-
-
---
 -- Name: emails; Type: TABLE; Schema: public; Owner: -
 --
 
@@ -398,6 +367,37 @@ ALTER SEQUENCE notes_id_seq OWNED BY notes.id;
 
 
 --
+-- Name: operation_days; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE operation_days (
+    id integer NOT NULL,
+    name character varying NOT NULL,
+    created_at timestamp without time zone NOT NULL,
+    updated_at timestamp without time zone NOT NULL
+);
+
+
+--
+-- Name: operation_days_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+CREATE SEQUENCE operation_days_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: operation_days_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+--
+
+ALTER SEQUENCE operation_days_id_seq OWNED BY operation_days.id;
+
+
+--
 -- Name: operation_times; Type: TABLE; Schema: public; Owner: -
 --
 
@@ -406,7 +406,7 @@ CREATE TABLE operation_times (
     open time without time zone NOT NULL,
     close time without time zone NOT NULL,
     agent_id integer NOT NULL,
-    day_id integer NOT NULL,
+    operation_day_id integer NOT NULL,
     created_at timestamp without time zone NOT NULL,
     updated_at timestamp without time zone NOT NULL
 );
@@ -806,13 +806,6 @@ ALTER TABLE ONLY contact_centers ALTER COLUMN id SET DEFAULT nextval('contact_ce
 -- Name: id; Type: DEFAULT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY days ALTER COLUMN id SET DEFAULT nextval('days_id_seq'::regclass);
-
-
---
--- Name: id; Type: DEFAULT; Schema: public; Owner: -
---
-
 ALTER TABLE ONLY emails ALTER COLUMN id SET DEFAULT nextval('emails_id_seq'::regclass);
 
 
@@ -849,6 +842,13 @@ ALTER TABLE ONLY model_numbers ALTER COLUMN id SET DEFAULT nextval('model_number
 --
 
 ALTER TABLE ONLY notes ALTER COLUMN id SET DEFAULT nextval('notes_id_seq'::regclass);
+
+
+--
+-- Name: id; Type: DEFAULT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY operation_days ALTER COLUMN id SET DEFAULT nextval('operation_days_id_seq'::regclass);
 
 
 --
@@ -961,14 +961,6 @@ ALTER TABLE ONLY contact_centers
 
 
 --
--- Name: days_pkey; Type: CONSTRAINT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY days
-    ADD CONSTRAINT days_pkey PRIMARY KEY (id);
-
-
---
 -- Name: emails_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
@@ -1014,6 +1006,14 @@ ALTER TABLE ONLY model_numbers
 
 ALTER TABLE ONLY notes
     ADD CONSTRAINT notes_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: operation_days_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY operation_days
+    ADD CONSTRAINT operation_days_pkey PRIMARY KEY (id);
 
 
 --
@@ -1154,13 +1154,6 @@ CREATE UNIQUE INDEX index_contact_centers_on_name ON contact_centers USING btree
 
 
 --
--- Name: index_days_on_name; Type: INDEX; Schema: public; Owner: -
---
-
-CREATE UNIQUE INDEX index_days_on_name ON days USING btree (name);
-
-
---
 -- Name: index_emails_on_address; Type: INDEX; Schema: public; Owner: -
 --
 
@@ -1196,6 +1189,13 @@ CREATE INDEX index_model_numbers_on_product_id ON model_numbers USING btree (pro
 
 
 --
+-- Name: index_operation_days_on_name; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE UNIQUE INDEX index_operation_days_on_name ON operation_days USING btree (name);
+
+
+--
 -- Name: index_operation_times_on_agent_id; Type: INDEX; Schema: public; Owner: -
 --
 
@@ -1203,10 +1203,10 @@ CREATE INDEX index_operation_times_on_agent_id ON operation_times USING btree (a
 
 
 --
--- Name: index_operation_times_on_day_id; Type: INDEX; Schema: public; Owner: -
+-- Name: index_operation_times_on_operation_day_id; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_operation_times_on_day_id ON operation_times USING btree (day_id);
+CREATE INDEX index_operation_times_on_operation_day_id ON operation_times USING btree (operation_day_id);
 
 
 --
@@ -1431,14 +1431,6 @@ ALTER TABLE ONLY model_numbers
 
 
 --
--- Name: fk_rails_74e40dff89; Type: FK CONSTRAINT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY operation_times
-    ADD CONSTRAINT fk_rails_74e40dff89 FOREIGN KEY (day_id) REFERENCES days(id);
-
-
---
 -- Name: fk_rails_7d4e59d979; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
@@ -1476,6 +1468,14 @@ ALTER TABLE ONLY service_jobs
 
 ALTER TABLE ONLY agents
     ADD CONSTRAINT fk_rails_c438db042d FOREIGN KEY (contact_center_id) REFERENCES contact_centers(id);
+
+
+--
+-- Name: fk_rails_c4c4f94fc5; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY operation_times
+    ADD CONSTRAINT fk_rails_c4c4f94fc5 FOREIGN KEY (operation_day_id) REFERENCES operation_days(id);
 
 
 --

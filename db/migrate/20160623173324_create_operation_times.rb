@@ -4,7 +4,7 @@ class CreateOperationTimes < ActiveRecord::Migration
       t.time :open, null: false
       t.time :close, null: false
       t.references :agent, index: true, foreign_key: true, null: false
-      t.references :day, index: true, foreign_key: true, null: false
+      t.references :operation_day, index: true, foreign_key: true, null: false
       t.timestamps null: false
     end
   end

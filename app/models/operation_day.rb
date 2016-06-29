@@ -1,4 +1,4 @@
-class Day < ActiveRecord::Base
+class OperationDay < ActiveRecord::Base
 	
 	# Relations
 	has_many :operation_times

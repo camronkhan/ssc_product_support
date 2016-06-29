@@ -14,14 +14,14 @@ User.create ([
 ])
 =end
 
-Day.create([
-	{ name: 'Sunday' },
-	{ name: 'Monday' },
-	{ name: 'Tuesday' },
-	{ name: 'Wednesday' },
-	{ name: 'Thursday' },
-	{ name: 'Friday' },
-	{ name: 'Saturday' }
+OperationDay.create([
+	{ name: 'Sunoperation_day' },
+	{ name: 'Monoperation_day' },
+	{ name: 'Tuesoperation_day' },
+	{ name: 'Wednesoperation_day' },
+	{ name: 'Thursoperation_day' },
+	{ name: 'Frioperation_day' },
+	{ name: 'Saturoperation_day' }
 ])
 
 ContactCenter.create([
