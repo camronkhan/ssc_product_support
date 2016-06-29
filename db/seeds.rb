@@ -690,7 +690,7 @@ SupportJob.create([
 	{ product_id: 192, agent_id: 4, job_type_id: 7, condition: 'All' }
 ])
 
-ServiceJob.create([
+FacilityJob.create([
 	{ product_id: 1, facility_id: 1, job_type_id: 8, condition: 'All' },
 	{ product_id: 2, facility_id: 1, job_type_id: 8, condition: 'All' },
 	{ product_id: 3, facility_id: 3, job_type_id: 8, condition: 'All' },

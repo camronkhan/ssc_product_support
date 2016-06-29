@@ -235,6 +235,40 @@ ALTER SEQUENCE facilities_id_seq OWNED BY facilities.id;
 
 
 --
+-- Name: facility_jobs; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE facility_jobs (
+    id integer NOT NULL,
+    condition character varying DEFAULT 'All'::character varying NOT NULL,
+    product_id integer NOT NULL,
+    facility_id integer NOT NULL,
+    job_type_id integer NOT NULL,
+    created_at timestamp without time zone NOT NULL,
+    updated_at timestamp without time zone NOT NULL
+);
+
+
+--
+-- Name: facility_jobs_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+CREATE SEQUENCE facility_jobs_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: facility_jobs_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+--
+
+ALTER SEQUENCE facility_jobs_id_seq OWNED BY facility_jobs.id;
+
+
+--
 -- Name: job_types; Type: TABLE; Schema: public; Owner: -
 --
 
@@ -508,40 +542,6 @@ ALTER SEQUENCE products_id_seq OWNED BY products.id;
 CREATE TABLE schema_migrations (
     version character varying NOT NULL
 );
-
-
---
--- Name: service_jobs; Type: TABLE; Schema: public; Owner: -
---
-
-CREATE TABLE service_jobs (
-    id integer NOT NULL,
-    condition character varying DEFAULT 'All'::character varying NOT NULL,
-    product_id integer NOT NULL,
-    facility_id integer NOT NULL,
-    job_type_id integer NOT NULL,
-    created_at timestamp without time zone NOT NULL,
-    updated_at timestamp without time zone NOT NULL
-);
-
-
---
--- Name: service_jobs_id_seq; Type: SEQUENCE; Schema: public; Owner: -
---
-
-CREATE SEQUENCE service_jobs_id_seq
-    START WITH 1
-    INCREMENT BY 1
-    NO MINVALUE
-    NO MAXVALUE
-    CACHE 1;
-
-
---
--- Name: service_jobs_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
---
-
-ALTER SEQUENCE service_jobs_id_seq OWNED BY service_jobs.id;
 
 
 --
@@ -820,6 +820,13 @@ ALTER TABLE ONLY facilities ALTER COLUMN id SET DEFAULT nextval('facilities_id_s
 -- Name: id; Type: DEFAULT; Schema: public; Owner: -
 --
 
+ALTER TABLE ONLY facility_jobs ALTER COLUMN id SET DEFAULT nextval('facility_jobs_id_seq'::regclass);
+
+
+--
+-- Name: id; Type: DEFAULT; Schema: public; Owner: -
+--
+
 ALTER TABLE ONLY job_types ALTER COLUMN id SET DEFAULT nextval('job_types_id_seq'::regclass);
 
 
@@ -870,13 +877,6 @@ ALTER TABLE ONLY phone_numbers ALTER COLUMN id SET DEFAULT nextval('phone_number
 --
 
 ALTER TABLE ONLY products ALTER COLUMN id SET DEFAULT nextval('products_id_seq'::regclass);
-
-
---
--- Name: id; Type: DEFAULT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY service_jobs ALTER COLUMN id SET DEFAULT nextval('service_jobs_id_seq'::regclass);
 
 
 --
@@ -977,6 +977,14 @@ ALTER TABLE ONLY facilities
 
 
 --
+-- Name: facility_jobs_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY facility_jobs
+    ADD CONSTRAINT facility_jobs_pkey PRIMARY KEY (id);
+
+
+--
 -- Name: job_types_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
@@ -1038,14 +1046,6 @@ ALTER TABLE ONLY phone_numbers
 
 ALTER TABLE ONLY products
     ADD CONSTRAINT products_pkey PRIMARY KEY (id);
-
-
---
--- Name: service_jobs_pkey; Type: CONSTRAINT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY service_jobs
-    ADD CONSTRAINT service_jobs_pkey PRIMARY KEY (id);
 
 
 --
@@ -1119,6 +1119,13 @@ CREATE INDEX emailable_index ON emails USING btree (emailable_type, emailable_id
 
 
 --
+-- Name: facility_jobs_index; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE UNIQUE INDEX facility_jobs_index ON facility_jobs USING btree (product_id, facility_id, job_type_id, condition);
+
+
+--
 -- Name: index_agents_on_contact_center_id; Type: INDEX; Schema: public; Owner: -
 --
 
@@ -1165,6 +1172,34 @@ CREATE UNIQUE INDEX index_emails_on_address ON emails USING btree (address);
 --
 
 CREATE UNIQUE INDEX index_facilities_on_name ON facilities USING btree (name);
+
+
+--
+-- Name: index_facility_jobs_on_facility_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_facility_jobs_on_facility_id ON facility_jobs USING btree (facility_id);
+
+
+--
+-- Name: index_facility_jobs_on_job_type_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_facility_jobs_on_job_type_id ON facility_jobs USING btree (job_type_id);
+
+
+--
+-- Name: index_facility_jobs_on_product_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_facility_jobs_on_product_id ON facility_jobs USING btree (product_id);
+
+
+--
+-- Name: index_facility_jobs_on_product_id_and_facility_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_facility_jobs_on_product_id_and_facility_id ON facility_jobs USING btree (product_id, facility_id);
 
 
 --
@@ -1228,34 +1263,6 @@ CREATE UNIQUE INDEX index_products_on_name ON products USING btree (name);
 --
 
 CREATE INDEX index_products_on_source_location_id ON products USING btree (source_location_id);
-
-
---
--- Name: index_service_jobs_on_facility_id; Type: INDEX; Schema: public; Owner: -
---
-
-CREATE INDEX index_service_jobs_on_facility_id ON service_jobs USING btree (facility_id);
-
-
---
--- Name: index_service_jobs_on_job_type_id; Type: INDEX; Schema: public; Owner: -
---
-
-CREATE INDEX index_service_jobs_on_job_type_id ON service_jobs USING btree (job_type_id);
-
-
---
--- Name: index_service_jobs_on_product_id; Type: INDEX; Schema: public; Owner: -
---
-
-CREATE INDEX index_service_jobs_on_product_id ON service_jobs USING btree (product_id);
-
-
---
--- Name: index_service_jobs_on_product_id_and_facility_id; Type: INDEX; Schema: public; Owner: -
---
-
-CREATE INDEX index_service_jobs_on_product_id_and_facility_id ON service_jobs USING btree (product_id, facility_id);
 
 
 --
@@ -1364,13 +1371,6 @@ CREATE INDEX phonable_index ON phone_numbers USING btree (phonable_type, phonabl
 
 
 --
--- Name: service_jobs_index; Type: INDEX; Schema: public; Owner: -
---
-
-CREATE UNIQUE INDEX service_jobs_index ON service_jobs USING btree (product_id, facility_id, job_type_id, condition);
-
-
---
 -- Name: support_jobs_index; Type: INDEX; Schema: public; Owner: -
 --
 
@@ -1439,6 +1439,14 @@ ALTER TABLE ONLY products
 
 
 --
+-- Name: fk_rails_8fad328a12; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY facility_jobs
+    ADD CONSTRAINT fk_rails_8fad328a12 FOREIGN KEY (job_type_id) REFERENCES job_types(id);
+
+
+--
 -- Name: fk_rails_a0f4fa1245; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
@@ -1447,19 +1455,19 @@ ALTER TABLE ONLY support_jobs
 
 
 --
+-- Name: fk_rails_aeda473911; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY facility_jobs
+    ADD CONSTRAINT fk_rails_aeda473911 FOREIGN KEY (facility_id) REFERENCES facilities(id);
+
+
+--
 -- Name: fk_rails_bef63769df; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY support_jobs
     ADD CONSTRAINT fk_rails_bef63769df FOREIGN KEY (job_type_id) REFERENCES job_types(id);
-
-
---
--- Name: fk_rails_c133d7f9bb; Type: FK CONSTRAINT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY service_jobs
-    ADD CONSTRAINT fk_rails_c133d7f9bb FOREIGN KEY (product_id) REFERENCES products(id);
 
 
 --
@@ -1479,19 +1487,11 @@ ALTER TABLE ONLY operation_times
 
 
 --
--- Name: fk_rails_d98688ba1a; Type: FK CONSTRAINT; Schema: public; Owner: -
+-- Name: fk_rails_e541bf561f; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY service_jobs
-    ADD CONSTRAINT fk_rails_d98688ba1a FOREIGN KEY (facility_id) REFERENCES facilities(id);
-
-
---
--- Name: fk_rails_efbeb806ad; Type: FK CONSTRAINT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY service_jobs
-    ADD CONSTRAINT fk_rails_efbeb806ad FOREIGN KEY (job_type_id) REFERENCES job_types(id);
+ALTER TABLE ONLY facility_jobs
+    ADD CONSTRAINT fk_rails_e541bf561f FOREIGN KEY (product_id) REFERENCES products(id);
 
 
 --

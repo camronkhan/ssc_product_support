@@ -1,8 +1,8 @@
 class Facility < ActiveRecord::Base
 
 	# Relations
-	has_many :service_jobs
-	has_many :products, through: :service_jobs
+	has_many :facility_jobs
+	has_many :products, through: :facility_jobs
 
 	# Polymorphic Attributes
 	has_many :case_queues, as: :ticketable

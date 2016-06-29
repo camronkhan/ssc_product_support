@@ -1,18 +1,18 @@
 require 'test_helper'
 
-class ServiceJobTest < ActiveSupport::TestCase
+class FacilityJobTest < ActiveSupport::TestCase
 
 	fixtures :products, :job_types, :facilities
 
 	def setup
-		@new_job = ServiceJob.create(
+		@new_job = FacilityJob.create(
 			condition: 'NewString',
 			product: products(:valid_product),
 			job_type: job_types(:valid_job_type),
 			facility: facilities(:valid_facility)
 		)
 
-		@duplicate_job = ServiceJob.create(
+		@duplicate_job = FacilityJob.create(
 			condition: 'MyString',
 			product: products(:valid_product),
 			job_type: job_types(:valid_job_type),
