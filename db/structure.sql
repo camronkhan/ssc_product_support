@@ -40,7 +40,7 @@ SET default_with_oids = false;
 CREATE TABLE agents (
     id integer NOT NULL,
     name character varying NOT NULL,
-    operates24x7 boolean DEFAULT false NOT NULL,
+    available24x7 boolean DEFAULT false NOT NULL,
     support_center_id integer NOT NULL,
     created_at timestamp without time zone NOT NULL,
     updated_at timestamp without time zone NOT NULL

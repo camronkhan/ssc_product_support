@@ -15,7 +15,7 @@ class Agent < ActiveRecord::Base
 
 	# Validations
 	validates :name, presence: true, uniqueness: { case_sensitive: false }
-	validates_inclusion_of :operates24x7, in: [true, false]
+	validates_inclusion_of :available24x7, in: [true, false]
 	validates :support_center, presence: true
 	validates_associated :support_center
 	

@@ -7,13 +7,13 @@ class AgentTest < ActiveSupport::TestCase
 	def setup
 		@new_agent = Agent.create(
 			name: 'NewString',
-			operates24x7: false,
+			available24x7: false,
 			support_center: support_centers(:valid_support_center)
 		)
 
 		@duplicate_agent = Agent.create(
 			name: 'MyString',
-			operates24x7: false,
+			available24x7: false,
 			support_center: support_centers(:valid_support_center)
 		)
 	end
@@ -35,7 +35,7 @@ class AgentTest < ActiveSupport::TestCase
 	end
 
 	test "agent must indicate if 24x7 operations" do
-		@new_agent.operates24x7 = nil
+		@new_agent.available24x7 = nil
 		assert @new_agent.invalid?
 		assert_not @new_agent.save
 	end
