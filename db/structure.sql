@@ -535,6 +535,72 @@ ALTER SEQUENCE phone_numbers_id_seq OWNED BY phone_numbers.id;
 
 
 --
+-- Name: portal_jobs; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE portal_jobs (
+    id integer NOT NULL,
+    condition character varying DEFAULT 'All'::character varying NOT NULL,
+    product_id integer NOT NULL,
+    portal_id integer NOT NULL,
+    job_type_id integer NOT NULL,
+    created_at timestamp without time zone NOT NULL,
+    updated_at timestamp without time zone NOT NULL
+);
+
+
+--
+-- Name: portal_jobs_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+CREATE SEQUENCE portal_jobs_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: portal_jobs_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+--
+
+ALTER SEQUENCE portal_jobs_id_seq OWNED BY portal_jobs.id;
+
+
+--
+-- Name: portals; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE portals (
+    id integer NOT NULL,
+    name character varying NOT NULL,
+    website_url character varying,
+    created_at timestamp without time zone NOT NULL,
+    updated_at timestamp without time zone NOT NULL
+);
+
+
+--
+-- Name: portals_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+CREATE SEQUENCE portals_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: portals_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+--
+
+ALTER SEQUENCE portals_id_seq OWNED BY portals.id;
+
+
+--
 -- Name: products; Type: TABLE; Schema: public; Owner: -
 --
 
@@ -883,6 +949,20 @@ ALTER TABLE ONLY phone_numbers ALTER COLUMN id SET DEFAULT nextval('phone_number
 -- Name: id; Type: DEFAULT; Schema: public; Owner: -
 --
 
+ALTER TABLE ONLY portal_jobs ALTER COLUMN id SET DEFAULT nextval('portal_jobs_id_seq'::regclass);
+
+
+--
+-- Name: id; Type: DEFAULT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY portals ALTER COLUMN id SET DEFAULT nextval('portals_id_seq'::regclass);
+
+
+--
+-- Name: id; Type: DEFAULT; Schema: public; Owner: -
+--
+
 ALTER TABLE ONLY products ALTER COLUMN id SET DEFAULT nextval('products_id_seq'::regclass);
 
 
@@ -1046,6 +1126,22 @@ ALTER TABLE ONLY operation_times
 
 ALTER TABLE ONLY phone_numbers
     ADD CONSTRAINT phone_numbers_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: portal_jobs_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY portal_jobs
+    ADD CONSTRAINT portal_jobs_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: portals_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY portals
+    ADD CONSTRAINT portals_pkey PRIMARY KEY (id);
 
 
 --
@@ -1280,6 +1376,41 @@ CREATE INDEX index_operation_times_on_operation_day_id ON operation_times USING 
 
 
 --
+-- Name: index_portal_jobs_on_job_type_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_portal_jobs_on_job_type_id ON portal_jobs USING btree (job_type_id);
+
+
+--
+-- Name: index_portal_jobs_on_portal_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_portal_jobs_on_portal_id ON portal_jobs USING btree (portal_id);
+
+
+--
+-- Name: index_portal_jobs_on_product_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_portal_jobs_on_product_id ON portal_jobs USING btree (product_id);
+
+
+--
+-- Name: index_portal_jobs_on_product_id_and_portal_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_portal_jobs_on_product_id_and_portal_id ON portal_jobs USING btree (product_id, portal_id);
+
+
+--
+-- Name: index_portals_on_name; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE UNIQUE INDEX index_portals_on_name ON portals USING btree (name);
+
+
+--
 -- Name: index_products_on_company_id; Type: INDEX; Schema: public; Owner: -
 --
 
@@ -1378,6 +1509,13 @@ CREATE INDEX phonable_index ON phone_numbers USING btree (phonable_type, phonabl
 
 
 --
+-- Name: portal_jobs_index; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE UNIQUE INDEX portal_jobs_index ON portal_jobs USING btree (product_id, portal_id, job_type_id, condition);
+
+
+--
 -- Name: taggings_idx; Type: INDEX; Schema: public; Owner: -
 --
 
@@ -1423,6 +1561,14 @@ ALTER TABLE ONLY model_numbers
 
 
 --
+-- Name: fk_rails_6ab795d2bb; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY portal_jobs
+    ADD CONSTRAINT fk_rails_6ab795d2bb FOREIGN KEY (product_id) REFERENCES products(id);
+
+
+--
 -- Name: fk_rails_7d4e59d979; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
@@ -1444,6 +1590,14 @@ ALTER TABLE ONLY agent_jobs
 
 ALTER TABLE ONLY facility_jobs
     ADD CONSTRAINT fk_rails_8fad328a12 FOREIGN KEY (job_type_id) REFERENCES job_types(id);
+
+
+--
+-- Name: fk_rails_95c4e84412; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY portal_jobs
+    ADD CONSTRAINT fk_rails_95c4e84412 FOREIGN KEY (job_type_id) REFERENCES job_types(id);
 
 
 --
@@ -1492,6 +1646,14 @@ ALTER TABLE ONLY agent_jobs
 
 ALTER TABLE ONLY facility_jobs
     ADD CONSTRAINT fk_rails_e541bf561f FOREIGN KEY (product_id) REFERENCES products(id);
+
+
+--
+-- Name: fk_rails_e7bb1c4332; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY portal_jobs
+    ADD CONSTRAINT fk_rails_e7bb1c4332 FOREIGN KEY (portal_id) REFERENCES portals(id);
 
 
 --
@@ -1565,4 +1727,8 @@ INSERT INTO schema_migrations (version) VALUES ('20160623185700');
 INSERT INTO schema_migrations (version) VALUES ('20160623190926');
 
 INSERT INTO schema_migrations (version) VALUES ('20160625184203');
+
+INSERT INTO schema_migrations (version) VALUES ('20160629145344');
+
+INSERT INTO schema_migrations (version) VALUES ('20160629145458');
 

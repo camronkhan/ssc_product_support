@@ -1,7 +1,13 @@
 # Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
 
-one:
+valid_portal_job:
   condition: MyString
+  product: valid_product
+  job_type: valid_job_type
+  portal: valid_portal
 
 two:
-  condition: MyString
+  condition: MyString2
+  product: valid_product
+  job_type: valid_job_type
+  portal: valid_portal
