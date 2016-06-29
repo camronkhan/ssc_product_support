@@ -1,4 +1,4 @@
-class SupportJob < ActiveRecord::Base
+class AgentJob < ActiveRecord::Base
 	
 	# Relations
 	belongs_to :product

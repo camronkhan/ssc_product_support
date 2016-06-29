@@ -450,7 +450,7 @@ Product.create([
 	{ source_location_id: 2, company_id: 3, name: 'Talkabout T9680RSAME', image_url: 'http://www.motorolasolutions.com/content/dam/msi/images/business/products/consumertwo-wayradios/talkabout-t9680rsame-two-way-radio/_images/_staticfiles/t9680rsame_lg.png' }
 ])
 
-SupportJob.create([
+AgentJob.create([
 	{ product_id: 1, agent_id: 35, job_type_id: 7, condition: 'All' },
 	{ product_id: 2, agent_id: 35, job_type_id: 7, condition: 'All' },
 	{ product_id: 3, agent_id: 48, job_type_id: 7, condition: 'All' },

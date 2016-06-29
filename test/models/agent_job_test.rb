@@ -1,18 +1,18 @@
 require 'test_helper'
 
-class SupportJobTest < ActiveSupport::TestCase
+class AgentJobTest < ActiveSupport::TestCase
 
 	fixtures :products, :job_types, :agents
 
 	def setup
-		@new_job = SupportJob.create(
+		@new_job = AgentJob.create(
 			condition: 'NewString',
 			product: products(:valid_product),
 			job_type: job_types(:valid_job_type),
 			agent: agents(:valid_agent)
 		)
 
-		@duplicate_job = SupportJob.create(
+		@duplicate_job = AgentJob.create(
 			condition: 'MyString',
 			product: products(:valid_product),
 			job_type: job_types(:valid_job_type),

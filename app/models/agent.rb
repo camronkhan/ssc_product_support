@@ -2,8 +2,8 @@ class Agent < ActiveRecord::Base
 	
 	# Relations
 	belongs_to :contact_center
-	has_many :support_jobs
-	has_many :products, through: :support_jobs
+	has_many :agent_jobs
+	has_many :products, through: :agent_jobs
 	has_many :operation_times
 	has_many :splits
 

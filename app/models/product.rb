@@ -4,8 +4,8 @@ class Product < ActiveRecord::Base
 	belongs_to :company
 	belongs_to :source_location
 	has_many :model_numbers
-	has_many :support_jobs
-	has_many :agents, through: :support_jobs
+	has_many :agent_jobs
+	has_many :agents, through: :agent_jobs
 	has_many :facility_jobs
 	has_many :facilities, through: :facility_jobs
 

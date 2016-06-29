@@ -34,6 +34,40 @@ SET default_tablespace = '';
 SET default_with_oids = false;
 
 --
+-- Name: agent_jobs; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE agent_jobs (
+    id integer NOT NULL,
+    condition character varying DEFAULT 'All'::character varying NOT NULL,
+    product_id integer NOT NULL,
+    agent_id integer NOT NULL,
+    job_type_id integer NOT NULL,
+    created_at timestamp without time zone NOT NULL,
+    updated_at timestamp without time zone NOT NULL
+);
+
+
+--
+-- Name: agent_jobs_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+CREATE SEQUENCE agent_jobs_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: agent_jobs_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+--
+
+ALTER SEQUENCE agent_jobs_id_seq OWNED BY agent_jobs.id;
+
+
+--
 -- Name: agents; Type: TABLE; Schema: public; Owner: -
 --
 
@@ -608,40 +642,6 @@ ALTER SEQUENCE splits_id_seq OWNED BY splits.id;
 
 
 --
--- Name: support_jobs; Type: TABLE; Schema: public; Owner: -
---
-
-CREATE TABLE support_jobs (
-    id integer NOT NULL,
-    condition character varying DEFAULT 'All'::character varying NOT NULL,
-    product_id integer NOT NULL,
-    agent_id integer NOT NULL,
-    job_type_id integer NOT NULL,
-    created_at timestamp without time zone NOT NULL,
-    updated_at timestamp without time zone NOT NULL
-);
-
-
---
--- Name: support_jobs_id_seq; Type: SEQUENCE; Schema: public; Owner: -
---
-
-CREATE SEQUENCE support_jobs_id_seq
-    START WITH 1
-    INCREMENT BY 1
-    NO MINVALUE
-    NO MAXVALUE
-    CACHE 1;
-
-
---
--- Name: support_jobs_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
---
-
-ALTER SEQUENCE support_jobs_id_seq OWNED BY support_jobs.id;
-
-
---
 -- Name: taggings; Type: TABLE; Schema: public; Owner: -
 --
 
@@ -778,6 +778,13 @@ ALTER SEQUENCE users_id_seq OWNED BY users.id;
 -- Name: id; Type: DEFAULT; Schema: public; Owner: -
 --
 
+ALTER TABLE ONLY agent_jobs ALTER COLUMN id SET DEFAULT nextval('agent_jobs_id_seq'::regclass);
+
+
+--
+-- Name: id; Type: DEFAULT; Schema: public; Owner: -
+--
+
 ALTER TABLE ONLY agents ALTER COLUMN id SET DEFAULT nextval('agents_id_seq'::regclass);
 
 
@@ -897,13 +904,6 @@ ALTER TABLE ONLY splits ALTER COLUMN id SET DEFAULT nextval('splits_id_seq'::reg
 -- Name: id; Type: DEFAULT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY support_jobs ALTER COLUMN id SET DEFAULT nextval('support_jobs_id_seq'::regclass);
-
-
---
--- Name: id; Type: DEFAULT; Schema: public; Owner: -
---
-
 ALTER TABLE ONLY taggings ALTER COLUMN id SET DEFAULT nextval('taggings_id_seq'::regclass);
 
 
@@ -926,6 +926,14 @@ ALTER TABLE ONLY user_roles ALTER COLUMN id SET DEFAULT nextval('user_roles_id_s
 --
 
 ALTER TABLE ONLY users ALTER COLUMN id SET DEFAULT nextval('users_id_seq'::regclass);
+
+
+--
+-- Name: agent_jobs_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY agent_jobs
+    ADD CONSTRAINT agent_jobs_pkey PRIMARY KEY (id);
 
 
 --
@@ -1065,14 +1073,6 @@ ALTER TABLE ONLY splits
 
 
 --
--- Name: support_jobs_pkey; Type: CONSTRAINT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY support_jobs
-    ADD CONSTRAINT support_jobs_pkey PRIMARY KEY (id);
-
-
---
 -- Name: taggings_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
@@ -1105,6 +1105,13 @@ ALTER TABLE ONLY users
 
 
 --
+-- Name: agent_jobs_index; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE UNIQUE INDEX agent_jobs_index ON agent_jobs USING btree (product_id, agent_id, job_type_id, condition);
+
+
+--
 -- Name: annotatable_index; Type: INDEX; Schema: public; Owner: -
 --
 
@@ -1123,6 +1130,34 @@ CREATE INDEX emailable_index ON emails USING btree (emailable_type, emailable_id
 --
 
 CREATE UNIQUE INDEX facility_jobs_index ON facility_jobs USING btree (product_id, facility_id, job_type_id, condition);
+
+
+--
+-- Name: index_agent_jobs_on_agent_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_agent_jobs_on_agent_id ON agent_jobs USING btree (agent_id);
+
+
+--
+-- Name: index_agent_jobs_on_job_type_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_agent_jobs_on_job_type_id ON agent_jobs USING btree (job_type_id);
+
+
+--
+-- Name: index_agent_jobs_on_product_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_agent_jobs_on_product_id ON agent_jobs USING btree (product_id);
+
+
+--
+-- Name: index_agent_jobs_on_product_id_and_agent_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_agent_jobs_on_product_id_and_agent_id ON agent_jobs USING btree (product_id, agent_id);
 
 
 --
@@ -1287,34 +1322,6 @@ CREATE UNIQUE INDEX index_splits_on_name ON splits USING btree (name);
 
 
 --
--- Name: index_support_jobs_on_agent_id; Type: INDEX; Schema: public; Owner: -
---
-
-CREATE INDEX index_support_jobs_on_agent_id ON support_jobs USING btree (agent_id);
-
-
---
--- Name: index_support_jobs_on_job_type_id; Type: INDEX; Schema: public; Owner: -
---
-
-CREATE INDEX index_support_jobs_on_job_type_id ON support_jobs USING btree (job_type_id);
-
-
---
--- Name: index_support_jobs_on_product_id; Type: INDEX; Schema: public; Owner: -
---
-
-CREATE INDEX index_support_jobs_on_product_id ON support_jobs USING btree (product_id);
-
-
---
--- Name: index_support_jobs_on_product_id_and_agent_id; Type: INDEX; Schema: public; Owner: -
---
-
-CREATE INDEX index_support_jobs_on_product_id_and_agent_id ON support_jobs USING btree (product_id, agent_id);
-
-
---
 -- Name: index_taggings_on_taggable_id_and_taggable_type_and_context; Type: INDEX; Schema: public; Owner: -
 --
 
@@ -1371,13 +1378,6 @@ CREATE INDEX phonable_index ON phone_numbers USING btree (phonable_type, phonabl
 
 
 --
--- Name: support_jobs_index; Type: INDEX; Schema: public; Owner: -
---
-
-CREATE UNIQUE INDEX support_jobs_index ON support_jobs USING btree (product_id, agent_id, job_type_id, condition);
-
-
---
 -- Name: taggings_idx; Type: INDEX; Schema: public; Owner: -
 --
 
@@ -1407,14 +1407,6 @@ ALTER TABLE ONLY splits
 
 
 --
--- Name: fk_rails_282f6106e5; Type: FK CONSTRAINT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY support_jobs
-    ADD CONSTRAINT fk_rails_282f6106e5 FOREIGN KEY (agent_id) REFERENCES agents(id);
-
-
---
 -- Name: fk_rails_438d5b34ce; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
@@ -1439,6 +1431,14 @@ ALTER TABLE ONLY products
 
 
 --
+-- Name: fk_rails_8bb995839e; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY agent_jobs
+    ADD CONSTRAINT fk_rails_8bb995839e FOREIGN KEY (agent_id) REFERENCES agents(id);
+
+
+--
 -- Name: fk_rails_8fad328a12; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
@@ -1447,11 +1447,11 @@ ALTER TABLE ONLY facility_jobs
 
 
 --
--- Name: fk_rails_a0f4fa1245; Type: FK CONSTRAINT; Schema: public; Owner: -
+-- Name: fk_rails_a9c57a4eff; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY support_jobs
-    ADD CONSTRAINT fk_rails_a0f4fa1245 FOREIGN KEY (product_id) REFERENCES products(id);
+ALTER TABLE ONLY agent_jobs
+    ADD CONSTRAINT fk_rails_a9c57a4eff FOREIGN KEY (product_id) REFERENCES products(id);
 
 
 --
@@ -1460,14 +1460,6 @@ ALTER TABLE ONLY support_jobs
 
 ALTER TABLE ONLY facility_jobs
     ADD CONSTRAINT fk_rails_aeda473911 FOREIGN KEY (facility_id) REFERENCES facilities(id);
-
-
---
--- Name: fk_rails_bef63769df; Type: FK CONSTRAINT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY support_jobs
-    ADD CONSTRAINT fk_rails_bef63769df FOREIGN KEY (job_type_id) REFERENCES job_types(id);
 
 
 --
@@ -1484,6 +1476,14 @@ ALTER TABLE ONLY agents
 
 ALTER TABLE ONLY operation_times
     ADD CONSTRAINT fk_rails_c4c4f94fc5 FOREIGN KEY (operation_day_id) REFERENCES operation_days(id);
+
+
+--
+-- Name: fk_rails_cf5b31d5c2; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY agent_jobs
+    ADD CONSTRAINT fk_rails_cf5b31d5c2 FOREIGN KEY (job_type_id) REFERENCES job_types(id);
 
 
 --

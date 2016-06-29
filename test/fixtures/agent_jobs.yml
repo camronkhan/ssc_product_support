@@ -1,6 +1,6 @@
 # Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
 
-valid_support_job:
+valid_agent_job:
   condition: MyString
   product: valid_product
   job_type: valid_job_type
