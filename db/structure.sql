@@ -41,7 +41,7 @@ CREATE TABLE agents (
     id integer NOT NULL,
     name character varying NOT NULL,
     available24x7 boolean DEFAULT false NOT NULL,
-    support_center_id integer NOT NULL,
+    contact_center_id integer NOT NULL,
     created_at timestamp without time zone NOT NULL,
     updated_at timestamp without time zone NOT NULL
 );
@@ -130,6 +130,37 @@ CREATE SEQUENCE companies_id_seq
 --
 
 ALTER SEQUENCE companies_id_seq OWNED BY companies.id;
+
+
+--
+-- Name: contact_centers; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE contact_centers (
+    id integer NOT NULL,
+    name character varying NOT NULL,
+    created_at timestamp without time zone NOT NULL,
+    updated_at timestamp without time zone NOT NULL
+);
+
+
+--
+-- Name: contact_centers_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+CREATE SEQUENCE contact_centers_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: contact_centers_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+--
+
+ALTER SEQUENCE contact_centers_id_seq OWNED BY contact_centers.id;
 
 
 --
@@ -577,37 +608,6 @@ ALTER SEQUENCE splits_id_seq OWNED BY splits.id;
 
 
 --
--- Name: support_centers; Type: TABLE; Schema: public; Owner: -
---
-
-CREATE TABLE support_centers (
-    id integer NOT NULL,
-    name character varying NOT NULL,
-    created_at timestamp without time zone NOT NULL,
-    updated_at timestamp without time zone NOT NULL
-);
-
-
---
--- Name: support_centers_id_seq; Type: SEQUENCE; Schema: public; Owner: -
---
-
-CREATE SEQUENCE support_centers_id_seq
-    START WITH 1
-    INCREMENT BY 1
-    NO MINVALUE
-    NO MAXVALUE
-    CACHE 1;
-
-
---
--- Name: support_centers_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
---
-
-ALTER SEQUENCE support_centers_id_seq OWNED BY support_centers.id;
-
-
---
 -- Name: support_jobs; Type: TABLE; Schema: public; Owner: -
 --
 
@@ -799,6 +799,13 @@ ALTER TABLE ONLY companies ALTER COLUMN id SET DEFAULT nextval('companies_id_seq
 -- Name: id; Type: DEFAULT; Schema: public; Owner: -
 --
 
+ALTER TABLE ONLY contact_centers ALTER COLUMN id SET DEFAULT nextval('contact_centers_id_seq'::regclass);
+
+
+--
+-- Name: id; Type: DEFAULT; Schema: public; Owner: -
+--
+
 ALTER TABLE ONLY days ALTER COLUMN id SET DEFAULT nextval('days_id_seq'::regclass);
 
 
@@ -890,13 +897,6 @@ ALTER TABLE ONLY splits ALTER COLUMN id SET DEFAULT nextval('splits_id_seq'::reg
 -- Name: id; Type: DEFAULT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY support_centers ALTER COLUMN id SET DEFAULT nextval('support_centers_id_seq'::regclass);
-
-
---
--- Name: id; Type: DEFAULT; Schema: public; Owner: -
---
-
 ALTER TABLE ONLY support_jobs ALTER COLUMN id SET DEFAULT nextval('support_jobs_id_seq'::regclass);
 
 
@@ -950,6 +950,14 @@ ALTER TABLE ONLY case_queues
 
 ALTER TABLE ONLY companies
     ADD CONSTRAINT companies_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: contact_centers_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY contact_centers
+    ADD CONSTRAINT contact_centers_pkey PRIMARY KEY (id);
 
 
 --
@@ -1057,14 +1065,6 @@ ALTER TABLE ONLY splits
 
 
 --
--- Name: support_centers_pkey; Type: CONSTRAINT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY support_centers
-    ADD CONSTRAINT support_centers_pkey PRIMARY KEY (id);
-
-
---
 -- Name: support_jobs_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
@@ -1119,17 +1119,17 @@ CREATE INDEX emailable_index ON emails USING btree (emailable_type, emailable_id
 
 
 --
+-- Name: index_agents_on_contact_center_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_agents_on_contact_center_id ON agents USING btree (contact_center_id);
+
+
+--
 -- Name: index_agents_on_name; Type: INDEX; Schema: public; Owner: -
 --
 
 CREATE UNIQUE INDEX index_agents_on_name ON agents USING btree (name);
-
-
---
--- Name: index_agents_on_support_center_id; Type: INDEX; Schema: public; Owner: -
---
-
-CREATE INDEX index_agents_on_support_center_id ON agents USING btree (support_center_id);
 
 
 --
@@ -1144,6 +1144,13 @@ CREATE UNIQUE INDEX index_case_queues_on_name ON case_queues USING btree (name);
 --
 
 CREATE UNIQUE INDEX index_companies_on_name ON companies USING btree (name);
+
+
+--
+-- Name: index_contact_centers_on_name; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE UNIQUE INDEX index_contact_centers_on_name ON contact_centers USING btree (name);
 
 
 --
@@ -1270,13 +1277,6 @@ CREATE INDEX index_splits_on_agent_id ON splits USING btree (agent_id);
 --
 
 CREATE UNIQUE INDEX index_splits_on_name ON splits USING btree (name);
-
-
---
--- Name: index_support_centers_on_name; Type: INDEX; Schema: public; Owner: -
---
-
-CREATE UNIQUE INDEX index_support_centers_on_name ON support_centers USING btree (name);
 
 
 --
@@ -1407,14 +1407,6 @@ ALTER TABLE ONLY splits
 
 
 --
--- Name: fk_rails_1316d28656; Type: FK CONSTRAINT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY agents
-    ADD CONSTRAINT fk_rails_1316d28656 FOREIGN KEY (support_center_id) REFERENCES support_centers(id);
-
-
---
 -- Name: fk_rails_282f6106e5; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
@@ -1476,6 +1468,14 @@ ALTER TABLE ONLY support_jobs
 
 ALTER TABLE ONLY service_jobs
     ADD CONSTRAINT fk_rails_c133d7f9bb FOREIGN KEY (product_id) REFERENCES products(id);
+
+
+--
+-- Name: fk_rails_c438db042d; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY agents
+    ADD CONSTRAINT fk_rails_c438db042d FOREIGN KEY (contact_center_id) REFERENCES contact_centers(id);
 
 
 --

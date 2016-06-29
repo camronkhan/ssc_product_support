@@ -1,4 +1,4 @@
-class SupportCenter < ActiveRecord::Base
+class ContactCenter < ActiveRecord::Base
 
 	# Relations
 	has_many :agents

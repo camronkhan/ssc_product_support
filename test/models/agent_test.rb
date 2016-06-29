@@ -2,19 +2,19 @@ require 'test_helper'
 
 class AgentTest < ActiveSupport::TestCase
   
-	fixtures :support_centers
+	fixtures :contact_centers
 
 	def setup
 		@new_agent = Agent.create(
 			name: 'NewString',
 			available24x7: false,
-			support_center: support_centers(:valid_support_center)
+			contact_center: contact_centers(:valid_contact_center)
 		)
 
 		@duplicate_agent = Agent.create(
 			name: 'MyString',
 			available24x7: false,
-			support_center: support_centers(:valid_support_center)
+			contact_center: contact_centers(:valid_contact_center)
 		)
 	end
 
@@ -41,7 +41,7 @@ class AgentTest < ActiveSupport::TestCase
 	end
 
 	test "agent must be associated with a support center" do
-		@new_agent.support_center = nil
+		@new_agent.contact_center = nil
 		assert @new_agent.invalid?
 		assert_not @new_agent.save
 	end

@@ -3,9 +3,9 @@
 valid_agent:
   name: MyString
   available24x7: false
-  support_center: valid_support_center
+  contact_center: valid_contact_center
 
 two:
   name: MyString2
   available24x7: false
-  support_center: valid_support_center
+  contact_center: valid_contact_center

@@ -1,7 +1,7 @@
 class Agent < ActiveRecord::Base
 	
 	# Relations
-	belongs_to :support_center
+	belongs_to :contact_center
 	has_many :support_jobs
 	has_many :products, through: :support_jobs
 	has_many :operation_times
@@ -16,7 +16,7 @@ class Agent < ActiveRecord::Base
 	# Validations
 	validates :name, presence: true, uniqueness: { case_sensitive: false }
 	validates_inclusion_of :available24x7, in: [true, false]
-	validates :support_center, presence: true
-	validates_associated :support_center
+	validates :contact_center, presence: true
+	validates_associated :contact_center
 	
 end

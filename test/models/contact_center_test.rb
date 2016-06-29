@@ -1,13 +1,13 @@
 require 'test_helper'
 
-class SupportCenterTest < ActiveSupport::TestCase
+class ContactCenterTest < ActiveSupport::TestCase
 
 	def setup
-		@new_center = SupportCenter.create(
+		@new_center = ContactCenter.create(
 			name: 'NewString'
 		)
 
-		@duplicate_center = SupportCenter.create(
+		@duplicate_center = ContactCenter.create(
 			name: 'MyString'
 		)
 	end
