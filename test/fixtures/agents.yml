@@ -3,9 +3,11 @@
 valid_agent:
   name: MyString
   available24x7: false
+  agent_role: valid_agent_role
   contact_center: valid_contact_center
 
 two:
   name: MyString2
   available24x7: false
+  agent_role: valid_agent_role
   contact_center: valid_contact_center

@@ -2,18 +2,20 @@ require 'test_helper'
 
 class AgentTest < ActiveSupport::TestCase
   
-	fixtures :contact_centers
+	fixtures :agent_roles, :contact_centers
 
 	def setup
 		@new_agent = Agent.create(
 			name: 'NewString',
 			available24x7: false,
+			agent_role: agent_roles(:valid_agent_role),
 			contact_center: contact_centers(:valid_contact_center)
 		)
 
 		@duplicate_agent = Agent.create(
 			name: 'MyString',
 			available24x7: false,
+			agent_role: agent_roles(:valid_agent_role),
 			contact_center: contact_centers(:valid_contact_center)
 		)
 	end
@@ -36,6 +38,12 @@ class AgentTest < ActiveSupport::TestCase
 
 	test "agent must indicate if 24x7 operations" do
 		@new_agent.available24x7 = nil
+		assert @new_agent.invalid?
+		assert_not @new_agent.save
+	end
+
+	test "agent must be associated with a role" do
+		@new_agent.agent_role = nil
 		assert @new_agent.invalid?
 		assert_not @new_agent.save
 	end

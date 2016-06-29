@@ -68,6 +68,37 @@ ALTER SEQUENCE agent_jobs_id_seq OWNED BY agent_jobs.id;
 
 
 --
+-- Name: agent_roles; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE agent_roles (
+    id integer NOT NULL,
+    name character varying NOT NULL,
+    created_at timestamp without time zone NOT NULL,
+    updated_at timestamp without time zone NOT NULL
+);
+
+
+--
+-- Name: agent_roles_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+CREATE SEQUENCE agent_roles_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: agent_roles_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+--
+
+ALTER SEQUENCE agent_roles_id_seq OWNED BY agent_roles.id;
+
+
+--
 -- Name: agents; Type: TABLE; Schema: public; Owner: -
 --
 
@@ -75,6 +106,7 @@ CREATE TABLE agents (
     id integer NOT NULL,
     name character varying NOT NULL,
     available24x7 boolean DEFAULT false NOT NULL,
+    agent_role_id integer NOT NULL,
     contact_center_id integer NOT NULL,
     created_at timestamp without time zone NOT NULL,
     updated_at timestamp without time zone NOT NULL
@@ -851,6 +883,13 @@ ALTER TABLE ONLY agent_jobs ALTER COLUMN id SET DEFAULT nextval('agent_jobs_id_s
 -- Name: id; Type: DEFAULT; Schema: public; Owner: -
 --
 
+ALTER TABLE ONLY agent_roles ALTER COLUMN id SET DEFAULT nextval('agent_roles_id_seq'::regclass);
+
+
+--
+-- Name: id; Type: DEFAULT; Schema: public; Owner: -
+--
+
 ALTER TABLE ONLY agents ALTER COLUMN id SET DEFAULT nextval('agents_id_seq'::regclass);
 
 
@@ -1014,6 +1053,14 @@ ALTER TABLE ONLY users ALTER COLUMN id SET DEFAULT nextval('users_id_seq'::regcl
 
 ALTER TABLE ONLY agent_jobs
     ADD CONSTRAINT agent_jobs_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: agent_roles_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY agent_roles
+    ADD CONSTRAINT agent_roles_pkey PRIMARY KEY (id);
 
 
 --
@@ -1254,6 +1301,20 @@ CREATE INDEX index_agent_jobs_on_product_id ON agent_jobs USING btree (product_i
 --
 
 CREATE INDEX index_agent_jobs_on_product_id_and_agent_id ON agent_jobs USING btree (product_id, agent_id);
+
+
+--
+-- Name: index_agent_roles_on_name; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE UNIQUE INDEX index_agent_roles_on_name ON agent_roles USING btree (name);
+
+
+--
+-- Name: index_agents_on_agent_role_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_agents_on_agent_role_id ON agents USING btree (agent_role_id);
 
 
 --
@@ -1641,6 +1702,14 @@ ALTER TABLE ONLY agent_jobs
 
 
 --
+-- Name: fk_rails_d3e414747d; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY agents
+    ADD CONSTRAINT fk_rails_d3e414747d FOREIGN KEY (agent_role_id) REFERENCES agent_roles(id);
+
+
+--
 -- Name: fk_rails_e541bf561f; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
@@ -1709,6 +1778,8 @@ INSERT INTO schema_migrations (version) VALUES ('20160623144405');
 INSERT INTO schema_migrations (version) VALUES ('20160623145532');
 
 INSERT INTO schema_migrations (version) VALUES ('20160623162742');
+
+INSERT INTO schema_migrations (version) VALUES ('20160623172201');
 
 INSERT INTO schema_migrations (version) VALUES ('20160623172213');
 
